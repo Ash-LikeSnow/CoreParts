@@ -103,6 +103,7 @@ namespace Scripts {
                     EnableOverload = false, // Enables terminal option to turn on Overload; this allows energy weapons to double damage per shot, at the cost of quadrupled power draw and heat gain, and 2% self damage on overheat.
                     AlternateUi = false, // This simplifies and customizes the block controls for alternative weapon purposes,   
                     DisableStatus = false, // Do not display weapon status NoTarget, Reloading, NoAmmo, etc..
+                    DisableSupportingPD = false, // If true, the supporting point defense terminal option will be removed and this weapon will only target projectiles targeting the construct it's placed on
                 },
                 Ai = new AiDef
                 {

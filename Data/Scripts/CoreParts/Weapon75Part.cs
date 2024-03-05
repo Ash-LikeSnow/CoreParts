@@ -134,11 +134,12 @@ namespace Scripts {
                     Type = BlockWeapon, // What type of weapon this is; BlockWeapon, HandWeapon, Phantom 
                     CriticalReaction = new CriticalDef
                     {
-                        Enable = false, // Enables Warhead behaviour.
+                        Enable = false, // Enables critical reaction on destruction.  Set true for warheads OR weapons that should explode dramatically on destruction.
                         DefaultArmedTimer = 120, // Sets default countdown duration.
                         PreArmed = false, // Whether the warhead is armed by default when placed. Best left as false.
-                        TerminalControls = true, // Whether the warhead should have terminal controls for arming and detonation.
-                        AmmoRound = "AmmoType2", // Optional. If specified, the warhead will always use this ammo on detonation rather than the currently selected ammo.
+                        TerminalControls = true, // Adds terminal controls for arming and detonation and indicates to WeaponCore that this is a warhead.  Leave this false for normal weapons intended to explode on destruction
+                        AmmoRound = "AmmoType2", // Optional. If specified, the warhead will always use this ammo on detonation rather than the first hardpoint usable ammo type.  
+                                                 //Note that normal ammo types fired from a weapon may not interact as desired.  See wiki for example of container + frag ammo types for a critical reaction/warhead
                     },
                 },
                 Other = new OtherDef

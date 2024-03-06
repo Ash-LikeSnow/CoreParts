@@ -158,8 +158,10 @@ namespace Scripts
                 },
                 Deform = new DeformDef
                 {
-                    DeformType = HitBlock,
-                    DeformDelay = 30,
+                    DeformType = HitBlock, // HitBlock- applies deformation to the block that was hit
+					   // AllDamagedBlocks- applies deformation to all blocks damaged (for AOE)
+					   // NoDeform- applies no deformation
+                    DeformDelay = 30, // Time in ticks to wait before applying another deformation event (prevents excess calls for deformation every tick or from multiple sources)
                 },
                 Custom = new CustomScalesDef
                 {

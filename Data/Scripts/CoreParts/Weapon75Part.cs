@@ -104,6 +104,8 @@ namespace Scripts {
                     AlternateUi = false, // This simplifies and customizes the block controls for alternative weapon purposes,   
                     DisableStatus = false, // Do not display weapon status NoTarget, Reloading, NoAmmo, etc..
                     DisableSupportingPD = false, // If true, the supporting point defense terminal option will be removed and this weapon will only target projectiles targeting the construct it's placed on
+                    ProhibitShotDelay = false, // If true, removes shot delay options for players.  This may be desirable for weapons that use heat or bursts as a balance mechanic and deliberately do not offer the ROF slider.
+                    ProhibitBurstCount = false, // If true, removes burst shot count options for players.
                 },
                 Ai = new AiDef
                 {

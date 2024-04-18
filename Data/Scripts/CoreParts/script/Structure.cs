@@ -512,6 +512,7 @@ namespace Scripts
                     [ProtoMember(22)] internal int MaxReloads;
                     [ProtoMember(23)] internal bool GoHomeToReload;
                     [ProtoMember(24)] internal bool DropTargetUntilLoaded;
+                    [ProtoMember(25)] internal bool ProhibitCoolingWhenOff;
                 }
 
 

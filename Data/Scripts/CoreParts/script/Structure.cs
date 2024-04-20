@@ -785,6 +785,7 @@ namespace Scripts
                 {
                     [ProtoMember(1)] internal int MaxObjectsHit;
                     [ProtoMember(2)] internal bool CountBlocks;
+                    [ProtoMember(3)] internal bool SkipBlocksForAOE;
                 }
 
 

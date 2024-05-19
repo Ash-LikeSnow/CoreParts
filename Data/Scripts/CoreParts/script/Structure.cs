@@ -1085,6 +1085,7 @@ namespace Scripts
                         Push,
                         Pull,
                         Tractor,
+                        AntiSmartv2
                     }
 
                     public enum EwarMode

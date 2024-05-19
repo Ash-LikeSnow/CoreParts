@@ -243,6 +243,7 @@ namespace Scripts
                 Nav : Targets & Shutdown Gyros or Locks them down
                 Dot : Deals Damage to Blocks in radius
                 AntiSmart : Effects & Scrambles the Targeting List of Affected Missiles
+                AntiSmartv2 : Effects & Scrambles the Targeting List of Affected Missiles.  See ewar section of wiki for specific differences
                 JumpNull : Shutdown & Stops any Active Jumps, or JumpDrive Units in radius
                 Tractor : Affects target with Physics
                 Pull : Affects target with Physics

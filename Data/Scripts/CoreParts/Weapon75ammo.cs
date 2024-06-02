@@ -557,7 +557,7 @@ namespace Scripts
                         Name = "",
                         ApplyToShield = true,
                         Offset = Vector(x: 0, y: 0, z: 0), // Note you can alter the directionality by passing different options:
-			    				   // Vector(double.MinValue, double.MinValue, double.MinValue), will align the "Up" direction of the particle opposite gravity
+			    				   // Vector(double.MinValue, double.MinValue, double.MinValue), will align the "Up" direction of the particle opposite gravity.  Note this is computationally expensive and should not be used with rapid fire weapons
 			    				   // Vector(double.MaxValue, double.MaxValue, double.MaxValue), will align the "Forward" direction of the particle opposite the trajectory it was going when it hit
                         DisableCameraCulling = false, // If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
                         Extras = new ParticleOptionDef

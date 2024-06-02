@@ -658,6 +658,7 @@ namespace Scripts
                 Type = Particle, // Particle or Item (Inventory Component)
                 Speed = 100f, // Speed inventory is ejected from in dummy direction
                 SpawnChance = 0.5f, // chance of triggering effect (0 - 1)
+                SpeedVariance = Random(start: 0, end: 0), //Random range added to speed of ejected item
                 CompDef = new ComponentDef
                 {
                     ItemName = "", //InventoryComponent name

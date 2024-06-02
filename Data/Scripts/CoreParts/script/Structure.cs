@@ -1004,6 +1004,7 @@ namespace Scripts
                     [ProtoMember(2)] internal float SpawnChance;
                     [ProtoMember(3)] internal SpawnType Type;
                     [ProtoMember(4)] internal ComponentDef CompDef;
+                    [ProtoMember(5)] internal Randomize SpeedVariance;
 
                     [ProtoContract]
                     public struct ComponentDef

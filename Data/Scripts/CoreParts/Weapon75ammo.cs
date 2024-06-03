@@ -656,9 +656,13 @@ namespace Scripts
             Ejection = new EjectionDef // Optional Component, allows generation of Particle or Item (Typically magazine), on firing, to simulate Tank shell ejection
             {
                 Type = Particle, // Particle or Item (Inventory Component)
-                Speed = 100f, // Speed inventory is ejected from in dummy direction
+                Speed = 100f, // Speed inventory is ejected from in dummy direction in meters per second
                 SpawnChance = 0.5f, // chance of triggering effect (0 - 1)
-                SpeedVariance = Random(start: 0, end: 0), //Random range added to speed of ejected item
+                SpeedVariance = Random(start: 0f, end: 0f), //Random range added to speed of ejected item, in meters per second
+                DirectionVariance = Random(start: 0f, end: 0f), //Random range added to each component of the ejector dummy position (try 0-1)
+                Rotation = Vector(0, 0, 0), //Rotation amount, radians per second per axis (try 50 in Z axis as a start)
+                RotationVariance = Random(start: 0f, end: 0f), //Random range added to each component of the rotation vector
+
                 CompDef = new ComponentDef
                 {
                     ItemName = "", //InventoryComponent name

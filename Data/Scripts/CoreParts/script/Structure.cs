@@ -1005,6 +1005,9 @@ namespace Scripts
                     [ProtoMember(3)] internal SpawnType Type;
                     [ProtoMember(4)] internal ComponentDef CompDef;
                     [ProtoMember(5)] internal Randomize SpeedVariance;
+                    [ProtoMember(6)] internal Randomize DirectionVariance;
+                    [ProtoMember(7)] internal Vector3D Rotation;
+                    [ProtoMember(8)] internal Randomize RotationVariance;
 
                     [ProtoContract]
                     public struct ComponentDef

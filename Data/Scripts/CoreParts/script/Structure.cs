@@ -654,6 +654,7 @@ namespace Scripts
                 [ProtoMember(29)] internal bool NpcSafe;
                 [ProtoMember(30)] internal SynchronizeDef Sync;
                 [ProtoMember(31)] internal bool NoGridOrArmorScaling;
+                [ProtoMember(32)] internal string TerminalName;
 
                 [ProtoContract]
                 public struct SynchronizeDef

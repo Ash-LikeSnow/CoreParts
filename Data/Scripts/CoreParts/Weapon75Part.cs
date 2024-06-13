@@ -184,8 +184,8 @@ namespace Scripts {
                     MaxReloads = 0, // Maximum number of reloads in the LIFETIME of a weapon
                     GoHomeToReload = false, // Tells the weapon it must be in the home position before it can reload.
                     DropTargetUntilLoaded = false, // If true this weapon will drop the target when its out of ammo and until its reloaded.
-                    InventoryFillAmount = 0.75f, // 0-1 as a % inventory volume amount that a weapon will try to fill up to
-                    InventoryLowAmount = 0.25f, // 0-1 as a % inventory volume amount as a "low" threshold, indicating a reload is needed
+                    InventoryFillAmount = 0.75f, // 0.00-1.00f as a % of inventory volume that a weapon will try to fill up to when requesting magazines from the conveyor system (0.75f = 75%)
+                    InventoryLowAmount = 0.25f, // 0.00-1.00f as a % of inventory volume.  If the current inventory is below this value, ammo magazines will be requested from the conveyor system (0.25f = 25%)
                 },
                 Audio = new HardPointAudioDef
                 {

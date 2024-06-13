@@ -184,6 +184,8 @@ namespace Scripts {
                     MaxReloads = 0, // Maximum number of reloads in the LIFETIME of a weapon
                     GoHomeToReload = false, // Tells the weapon it must be in the home position before it can reload.
                     DropTargetUntilLoaded = false, // If true this weapon will drop the target when its out of ammo and until its reloaded.
+                    InventoryFillAmount = 0.75f, // 0-1 as a % inventory volume amount that a weapon will try to fill up to
+                    InventoryLowAmount = 0.25f, // 0-1 as a % inventory volume amount as a "low" threshold, indicating a reload is needed
                 },
                 Audio = new HardPointAudioDef
                 {

@@ -26,7 +26,7 @@ namespace Scripts {
                         AzimuthPartId = "None", // Your Rotating Subpart, the bit that moves sideways.
                         ElevationPartId = "None",// Your Elevating Subpart, that bit that moves up.
                         DurabilityMod = 0.25f, // GeneralDamageMultiplier, 0.25f = 25% damage taken.
-                        IconName = "TestIcon.dds" // Overlay for block inventory slots, like reactors, refineries, etc.
+                        IconName = "TestIcon.dds" // Overlay for block inventory slots, like reactors, refineries, etc.  Looks in mod root folder\Textures\GUI\Icons\
                     },
                     
                  },
@@ -184,8 +184,8 @@ namespace Scripts {
                     MaxReloads = 0, // Maximum number of reloads in the LIFETIME of a weapon
                     GoHomeToReload = false, // Tells the weapon it must be in the home position before it can reload.
                     DropTargetUntilLoaded = false, // If true this weapon will drop the target when its out of ammo and until its reloaded.
-                    InventoryFillAmount = 0.75f, // 0-1 as a % inventory volume amount that a weapon will try to fill up to
-                    InventoryLowAmount = 0.25f, // 0-1 as a % inventory volume amount as a "low" threshold, indicating a reload is needed
+                    InventoryFillAmount = 0.75f, // 0.00-1.00f as a % of inventory volume that a weapon will try to fill up to when requesting magazines from the conveyor system (0.75f = 75%)
+                    InventoryLowAmount = 0.25f, // 0.00-1.00f as a % of inventory volume.  If the current inventory is below this value, ammo magazines will be requested from the conveyor system (0.25f = 25%)
                     UseWorldInventoryVolumeMultiplier = false, // If true, the inventory volume will be multiplied by the world setting for inventory volume.  Note this ties into reload checks and may result in weapons filling more than desired with high multipliers
                 },
                 Audio = new HardPointAudioDef

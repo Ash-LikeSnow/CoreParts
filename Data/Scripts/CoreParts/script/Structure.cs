@@ -1301,6 +1301,7 @@ namespace Scripts
                     [ProtoMember(15)] internal ApproachDef[] Approaches;
                     [ProtoMember(16)] internal double TotalAcceleration;
                     [ProtoMember(17)] internal OnHitDef OnHit;
+                    [ProtoMember(18)] internal float DragPerSecond;
 
                     [ProtoContract]
                     public struct SmartsDef

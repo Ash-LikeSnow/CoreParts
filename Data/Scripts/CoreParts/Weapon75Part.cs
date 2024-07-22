@@ -52,8 +52,8 @@ namespace Scripts {
                 ClosestFirst = true, // Tries to pick closest targets first (blocks on grids, projectiles, etc...).
                 IgnoreDumbProjectiles = false, // Don't fire at non-smart projectiles.
                 LockedSmartOnly = false, // Only fire at smart projectiles that are locked on to parent grid.
-                MinimumDiameter = 0, // Minimum radius of threat to engage.
-                MaximumDiameter = 0, // Maximum radius of threat to engage; 0 = unlimited.
+                MinimumDiameter = 0, // Minimum diameter of threat to engage.
+                MaximumDiameter = 0, // Maximum diameter of threat to engage; 0 = unlimited.
                 MaxTargetDistance = 0, // Maximum distance at which targets will be automatically shot at; 0 = unlimited.
                 MinTargetDistance = 0, // Minimum distance at which targets will be automatically shot at.
                 TopTargets = 4, // Maximum number of targets to randomize between; 0 = unlimited.

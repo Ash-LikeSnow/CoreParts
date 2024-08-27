@@ -658,6 +658,7 @@ namespace Scripts
                 [ProtoMember(30)] internal SynchronizeDef Sync;
                 [ProtoMember(31)] internal bool NoGridOrArmorScaling;
                 [ProtoMember(32)] internal string TerminalName;
+                [ProtoMember(33)] internal float BaseDamageCutoff;
 
                 [ProtoContract]
                 public struct SynchronizeDef

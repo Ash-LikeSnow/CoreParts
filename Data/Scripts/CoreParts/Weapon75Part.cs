@@ -118,6 +118,7 @@ namespace Scripts {
                     OverrideLeads = false, // Disable target leading on fixed weapons, or allow it for turrets.
                     DefaultLeadGroup = 0, // Default LeadGroup setting, range 0-5, 0 is disables lead group.  Only useful for fixed weapons or weapons set to OverrideLeads.
                     TargetGridCenter = false, // Does not target blocks, instead it targets grid center.
+                    PainterUseMaxTargeting = false, //If enabled, painter will utilize the lesser of the weapons targeting max dist or projectile trajectory.  By default painter can be used out to the projectiles max trajectory.
                 },
                 HardWare = new HardwareDef
                 {

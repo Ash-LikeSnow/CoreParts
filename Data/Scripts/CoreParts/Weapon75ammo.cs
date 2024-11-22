@@ -529,7 +529,7 @@ namespace Scripts
             AmmoGraphics = new GraphicDef
             {
                 ModelName = "", // Model Path goes here.  "\\Models\\Ammo\\Starcore_Arrow_Missile_Large"
-                VisualProbability = 1f, // %
+                VisualProbability = 1f, // 0-1 % chance of AV appearing (controls all audio AND visual)
                 ShieldHitDraw = false,
                 Decals = new DecalDef
                 {
@@ -571,7 +571,7 @@ namespace Scripts
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
-                            HitPlayChance = 1f,
+                            HitPlayChance = 1f, // 0-1% chance the particle is shown
                         },
                     },
                     Eject = new ParticleDef
@@ -583,7 +583,7 @@ namespace Scripts
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
-                            HitPlayChance = 1f,
+                            HitPlayChance = 1f, // 0-1% chance the particle is shown
                         },
                     },
                     WeaponEffect1Override = new ParticleDef //Optional ammo-level override for Effect1 used when a weapon fires.  Delete this section or leave name blank to disable
@@ -672,8 +672,8 @@ namespace Scripts
                 PlayerHitSound = "",
                 VoxelHitSound = "",
                 FloatingHitSound = "",
-                HitPlayChance = 0.5f,
-                HitPlayShield = true,
+                HitPlayChance = 0.5f, //0-1% chance for the hit sound to play
+                HitPlayShield = true, //Including chance above, determines if the ShieldHitSound will play for shield hits
             },
             Ejection = new EjectionDef // Optional Component, allows generation of Particle or Item (Typically magazine), on firing, to simulate Tank shell ejection
             {

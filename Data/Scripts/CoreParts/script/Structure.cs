@@ -613,7 +613,7 @@ namespace Scripts
                     [ProtoMember(8)] internal bool CheckForAnyWeapon;
                     [ProtoMember(9)] internal bool DisableLosCheck;
                     [ProtoMember(10)] internal bool NoVoxelLosCheck;
-
+                    [ProtoMember(11)] internal bool AllowScopeOutsideObb;
                 }
 
                 [ProtoContract]

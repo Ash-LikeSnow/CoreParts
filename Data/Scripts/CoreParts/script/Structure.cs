@@ -819,6 +819,7 @@ namespace Scripts
                         [ProtoMember(2)] internal ParticleDef Hit;
                         [ProtoMember(3)] internal ParticleDef Eject;
                         [ProtoMember(4)] internal ParticleDef WeaponEffect1Override;
+                        [ProtoMember(5)] internal ParticleDef ShieldHit;
                     }
 
                     [ProtoContract]

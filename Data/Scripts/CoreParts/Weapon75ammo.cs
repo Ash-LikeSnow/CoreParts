@@ -601,6 +601,19 @@ namespace Scripts
                             Scale = 1f, // Scale of effect.
                         },
                     },
+                    ShieldHit = new ParticleDef //Optional particle for shield hit events (if used, this will play even if your regular hit has ApplyToShield = true)
+                    {
+                        Name = "",
+                        Offset = Vector(x: 0, y: 0, z: 0), // Note you can alter the directionality by passing different options:
+                                                           // Vector(double.MinValue, double.MinValue, double.MinValue), will align the "Up" direction of the particle opposite gravity.  Note this is computationally expensive and should not be used with rapid fire weapons
+                                                           // Vector(double.MaxValue, double.MaxValue, double.MaxValue), will align the "Forward" direction of the particle opposite the trajectory it was going when it hit
+                        DisableCameraCulling = false, // If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        Extras = new ParticleOptionDef
+                        {
+                            Scale = 1,
+                            HitPlayChance = 1f, // 0-1% chance the particle is shown
+                        },
+                    },
                 },
                 Lines = new LineDef
                 {

@@ -91,7 +91,8 @@ namespace Scripts {
                 AimLeadingPrediction = Accurate, // Level of turret aim prediction; Off (aim straight at target), Basic (doesn't account for target acceleration), Accurate, Advanced (these last two are identical)
                 DelayCeaseFire = 0, // Measured in game ticks (6 = 100ms, 60 = 1 second, etc..). Length of time the weapon continues firing after trigger is released - while a target is available.
                 AddToleranceToTracking = false, // Allows turret to track to the edge of the AimingTolerance cone instead of dead centre.
-                CanShootSubmerged = false, // Whether the weapon can be fired underwater when using WaterMod.
+                CanShootSubmerged = false, // Whether the weapon itself will be usable if submerged when using WaterMod.
+                CanTargetSubmerged = false, // Whether the weapon can target things underwater (note this works as an OR for ammo that ignores water, so if either this is true or the ammo ignores water, targeting will proceed)
                 NpcSafe = false, // This is how you tell npc modders that your wep was designed with them in mind, unless they tell you otherwise set this to false.
                 ScanTrackOnly = false, // This weapon only scans and tracks entities, this disables un-needed functionality and customizes for this purpose. 
                 Ui = new UiDef

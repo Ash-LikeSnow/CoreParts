@@ -1336,6 +1336,7 @@ namespace Scripts
                         [ProtoMember(23)] internal double MinTurnSpeed;
                         [ProtoMember(24)] internal bool NoTargetApproach;
                         [ProtoMember(25)] internal bool AltNavigation;
+                        [ProtoMember(26)] internal bool IgnoreAntiSmarts;
                     }
 
                     [ProtoContract]

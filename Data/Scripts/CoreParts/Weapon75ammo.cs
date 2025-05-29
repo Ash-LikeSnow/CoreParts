@@ -556,7 +556,7 @@ namespace Scripts
                     {
                         Name = "", //ShipWelderArc
                         Offset = Vector(x: 0, y: 0, z: 0),
-                        DisableCameraCulling = false,// If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false,// If true will not cull when not in view of camera, be careful with this and only use if you know you need it
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
@@ -569,7 +569,7 @@ namespace Scripts
                         Offset = Vector(x: 0, y: 0, z: 0), // Note you can alter the directionality by passing different options:
 			    				   // Vector(double.MinValue, double.MinValue, double.MinValue), will align the "Up" direction of the particle opposite gravity.  Note this is computationally expensive and should not be used with rapid fire weapons
 			    				   // Vector(double.MaxValue, double.MaxValue, double.MaxValue), will align the "Forward" direction of the particle opposite the trajectory it was going when it hit
-                        DisableCameraCulling = false, // If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
@@ -579,9 +579,8 @@ namespace Scripts
                     Eject = new ParticleDef
                     {
                         Name = "",
-                        ApplyToShield = true,
                         Offset = Vector(x: 0, y: 0, z: 0),
-                        DisableCameraCulling = false, // If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
@@ -592,7 +591,7 @@ namespace Scripts
                     {
                         Name = "Muzzle_Flash_Large", // SubtypeId of muzzle particle effect.
                         Offset = Vector(x: 0, y: 0, z: 0), // Offsets the effect from the muzzle empty.
-                        DisableCameraCulling = false, // If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
                         Extras = new ParticleOptionDef
                         {
                             Loop = false, // Set this to the same as in the particle sbc!
@@ -605,7 +604,27 @@ namespace Scripts
                     ShieldHit = new ParticleDef //Optional particle for shield hit events (if used, this will play even if your regular hit has ApplyToShield = true).  Note that offset is ignored and figured by WC to rotate the particle to align to the shield
                     {
                         Name = "",
-                        DisableCameraCulling = false, // If not true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        Extras = new ParticleOptionDef
+                        {
+                            Scale = 1,
+                            HitPlayChance = 1f, // 0-1% chance the particle is shown
+                        },
+                    },
+                    VoxelHit = new ParticleDef //Optional particle for voxel hit events.  Note that offset is ignored and WC will align the "Up" direction of the particle opposite gravity.  
+                    {
+                        Name = "",
+                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        Extras = new ParticleOptionDef
+                        {
+                            Scale = 1,
+                            HitPlayChance = 1f, // 0-1% chance the particle is shown
+                        },
+                    },
+                    WaterHit = new ParticleDef //Optional particle for water hit events.  Note that offset is ignored and WC will align the "Up" direction of the particle opposite gravity.  
+                    {
+                        Name = "",
+                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,

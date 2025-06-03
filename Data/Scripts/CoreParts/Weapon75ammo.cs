@@ -697,7 +697,7 @@ namespace Scripts
             AmmoAudio = new AmmoAudioDef
             {
                 TravelSound = "", // SubtypeID for your Sound File. Travel is sound generated around your projectile in flight
-                HitSound = "", // Default hit sound, used unless optional hit sounds below are populated.  MUST HAVE A VALUE FOR ANY SOUND TO WORK! 
+                HitSound = "", // Default hit sound, used unless optional hit sounds below are populated.  MUST HAVE A VALUE FOR ANY HIT SOUND TO WORK! 
                 ShotSound = "", // Sound when fired
                 ShieldHitSound = "", // Shield hit
                 PlayerHitSound = "", // Player character hit

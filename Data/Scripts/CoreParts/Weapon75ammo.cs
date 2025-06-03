@@ -696,15 +696,16 @@ namespace Scripts
             },
             AmmoAudio = new AmmoAudioDef
             {
-                TravelSound = "", // SubtypeID for your Sound File. Travel, is sound generated around your Projectile in flight
-                HitSound = "",
-                ShotSound = "",
-                ShieldHitSound = "",
-                PlayerHitSound = "",
-                VoxelHitSound = "",
-                FloatingHitSound = "",
-                HitPlayChance = 0.5f, //0-1% chance for the hit sound to play
-                HitPlayShield = true, //Including chance above, determines if the ShieldHitSound will play for shield hits
+                TravelSound = "", // SubtypeID for your Sound File. Travel is sound generated around your projectile in flight
+                HitSound = "", // Default hit sound, used unless optional hit sounds below are populated.  MUST HAVE A VALUE FOR ANY SOUND TO WORK! 
+                ShotSound = "", // Sound when fired
+                ShieldHitSound = "", // Shield hit
+                PlayerHitSound = "", // Player character hit
+                VoxelHitSound = "", // Voxel hit
+                FloatingHitSound = "", // Floating object hit (IE components floating in space)
+                WaterHitSound = "", // Water hit sound, if Water Mod is present
+                HitPlayChance = 0.5f, //0-1% chance for any hit sound to play
+                HitPlayShield = true, //Including chance above, determines if the ShieldHitSound (or if ShieldHitSound is blank, default HitSound) will play for shield hits
             },
             Ejection = new EjectionDef // Optional Component, allows generation of Particle or Item (Typically magazine), on firing, to simulate Tank shell ejection
             {

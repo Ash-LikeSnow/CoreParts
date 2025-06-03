@@ -821,6 +821,8 @@ namespace Scripts
                         [ProtoMember(3)] internal ParticleDef Eject;
                         [ProtoMember(4)] internal ParticleDef WeaponEffect1Override;
                         [ProtoMember(5)] internal ParticleDef ShieldHit;
+                        [ProtoMember(6)] internal ParticleDef VoxelHit;
+                        [ProtoMember(7)] internal ParticleDef WaterHit;
                     }
 
                     [ProtoContract]
@@ -1271,6 +1273,7 @@ namespace Scripts
                     [ProtoMember(7)] internal string FloatingHitSound;
                     [ProtoMember(8)] internal string ShieldHitSound;
                     [ProtoMember(9)] internal string ShotSound;
+                    [ProtoMember(10)] internal string WaterHitSound;
                 }
 
                 [ProtoContract]
@@ -1336,6 +1339,7 @@ namespace Scripts
                         [ProtoMember(23)] internal double MinTurnSpeed;
                         [ProtoMember(24)] internal bool NoTargetApproach;
                         [ProtoMember(25)] internal bool AltNavigation;
+                        [ProtoMember(26)] internal bool IgnoreAntiSmarts;
                     }
 
                     [ProtoContract]

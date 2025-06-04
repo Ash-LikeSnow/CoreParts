@@ -158,6 +158,8 @@ namespace Scripts {
                     RestrictionRadius = 0, // Prevents other blocks of this type from being placed within this distance of the centre of the block.
                     CheckInflatedBox = false, // If true, the above distance check is performed from the edge of the block instead of the centre.
                     CheckForAnyWeapon = false, // If true, the check will fail if ANY weapon is present, not just weapons of the same subtype.
+                    ProhibitLGTargeting = false, // If true, prohibits block from targeting Large Grids (best used in server-specific weapon packs)
+                    ProhibitSGTargeting = false, // If true, prohibits block from targeting Small Grids (best used in server-specific weapon packs)
                 },
                 Loading = new LoadingDef
                 {

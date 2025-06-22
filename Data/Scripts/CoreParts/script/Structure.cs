@@ -1309,7 +1309,7 @@ namespace Scripts
                     [ProtoMember(14)] internal uint MaxTrajectoryTime;
                     [ProtoMember(15)] internal ApproachDef[] Approaches;
                     [ProtoMember(16)] internal double TotalAcceleration;
-                    [ProtoMember(17)] internal OnHitDef OnHit;
+                    [ProtoMember(17)] internal OnHitDef OnHit; // Deprecated
                     [ProtoMember(18)] internal float DragPerSecond;
                     [ProtoMember(19)] internal float DragMinSpeed;
 

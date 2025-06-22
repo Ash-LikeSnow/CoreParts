@@ -525,8 +525,6 @@ namespace Scripts
                     Cloak = false,
                     Persist = false,
                 },
-                OnHit = new OnHitDef {
-                }
             },
             AmmoGraphics = new GraphicDef
             {
@@ -562,20 +560,6 @@ namespace Scripts
                             Scale = 1,
                         },
                     },
-                    Hit = new ParticleDef
-                    {
-                        Name = "",
-                        ApplyToShield = true,
-                        Offset = Vector(x: 0, y: 0, z: 0), // Note you can alter the directionality by passing different options:
-			    				   // Vector(double.MinValue, double.MinValue, double.MinValue), will align the "Up" direction of the particle opposite gravity.  Note this is computationally expensive and should not be used with rapid fire weapons
-			    				   // Vector(double.MaxValue, double.MaxValue, double.MaxValue), will align the "Forward" direction of the particle opposite the trajectory it was going when it hit
-                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
-                        Extras = new ParticleOptionDef
-                        {
-                            Scale = 1,
-                            HitPlayChance = 1f, // 0-1% chance the particle is shown
-                        },
-                    },
                     Eject = new ParticleDef
                     {
                         Name = "",
@@ -601,34 +585,52 @@ namespace Scripts
                             Scale = 1f, // Scale of effect.
                         },
                     },
+                    Hit = new ParticleDef
+                    {
+                        Name = "",
+                        ApplyToShield = true,
+                        Offset = Vector(x: 0, y: 0, z: 0), // Note you can alter the directionality by passing different options:
+                                                           // Vector(double.MinValue, double.MinValue, double.MinValue), will align the "Up" direction of the particle opposite gravity.  Note this is computationally expensive and should not be used with rapid fire weapons
+                                                           // Vector(double.MaxValue, double.MaxValue, double.MaxValue), will align the "Forward" direction of the particle opposite the trajectory it was going when it hit
+                        DisableCameraCulling = false, // If true, will always draw particle even if off screen, regardless of distance
+                        Extras = new ParticleOptionDef
+                        {
+                            Scale = 1,
+                            HitPlayChance = 1f, // 0-1% chance the particle is shown
+                            MaxDistance = 0, // Max distance from camera to draw particle (will always be drawn within 600m)
+                        },
+                    },
                     ShieldHit = new ParticleDef //Optional particle for shield hit events (if used, this will play even if your regular hit has ApplyToShield = true).  Note that offset is ignored and figured by WC to rotate the particle to align to the shield
                     {
                         Name = "",
-                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true, will always draw particle even if off screen, regardless of distance
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
                             HitPlayChance = 1f, // 0-1% chance the particle is shown
+                            MaxDistance = 0, // Max distance from camera to draw particle (will always be drawn within 600m)
                         },
                     },
-                    VoxelHit = new ParticleDef //Optional particle for voxel hit events.  Note that offset is ignored and WC will align the "Up" direction of the particle opposite gravity.  
+                    VoxelHit = new ParticleDef //Optional particle for voxel hit events.  Note that offset is ignored and WC will align the "Up" direction of the particle opposite gravity if gravity is present.  
                     {
                         Name = "",
-                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true, will always draw particle even if off screen, regardless of distance
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
                             HitPlayChance = 1f, // 0-1% chance the particle is shown
+                            MaxDistance = 0, // Max distance from camera to draw particle (will always be drawn within 600m)
                         },
                     },
                     WaterHit = new ParticleDef //Optional particle for water hit events.  Note that offset is ignored and WC will align the "Up" direction of the particle opposite gravity.  
                     {
                         Name = "",
-                        DisableCameraCulling = false, // If true will not cull when not in view of camera, be careful with this and only use if you know you need it
+                        DisableCameraCulling = false, // If true, will always draw particle even if off screen, regardless of distance
                         Extras = new ParticleOptionDef
                         {
                             Scale = 1,
                             HitPlayChance = 1f, // 0-1% chance the particle is shown
+                            MaxDistance = 0, // Max distance from camera to draw particle (will always be drawn within 600m)
                         },
                     },
                 },

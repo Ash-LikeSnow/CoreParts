@@ -617,6 +617,7 @@ namespace Scripts
                     [ProtoMember(11)] internal bool AllowScopeOutsideObb;
                     [ProtoMember(12)] internal bool ProhibitLGTargeting;
                     [ProtoMember(13)] internal bool ProhibitSGTargeting;
+                    [ProtoMember(14)] internal bool ProhibitSubsystemChanges;
                 }
 
                 [ProtoContract]

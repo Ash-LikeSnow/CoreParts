@@ -173,8 +173,11 @@ namespace Scripts
                 },
                 Custom = new CustomScalesDef
                 {
-                    SkipOthers = NoSkip, // Controls how projectile interacts with other blocks in relation to those defined here, NoSkip, Exclusive, Inclusive.
-                    Types = new[] // List of blocks to apply custom damage multipliers to.
+                    SkipOthers = NoSkip, // Controls how projectile interacts with other blocks in relation to those defined here:
+                                            //NoSkip - Applies given modifier to the given blocks, and damages other blocks normally
+                                            //Exclusive - Projectile will ONLY damage the given blocks, with the given modifier, and skips all other blocks
+                                            //Inclusive - Projectile will not damage the given blocks regardless of modifier, and will damage other blocks normally (modifier can be omitted in this case, won't do anything)
+                    Types = new[] // List of blocks for options above.
                     {
                         new CustomBlocksDef
                         {

@@ -10,6 +10,7 @@ using static Scripts.Structure.WeaponDefinition.TargetingDef.CommunicationDef.Co
 using static Scripts.Structure.WeaponDefinition.TargetingDef.CommunicationDef.SecurityMode;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.HardwareDef;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.HardwareDef.HardwareType;
+using static Scripts.Structure.WeaponDefinition.HardPointDef.LoadingDef;
 
 namespace Scripts {   
     partial class Parts {
@@ -176,7 +177,17 @@ namespace Scripts {
                     MaxHeat = 70000, // Max heat before weapon enters cooldown (70% of max heat).
                     Cooldown = .95f, // Percentage of max heat to be under to start firing again after overheat; accepts 0 - 0.95
                     HeatSinkRate = 9000000, // Amount of heat lost per second.
+                    HeatSinkRateOverheatMult = 1f, // Multiplier to LoadingDef.HeatSinkRate when the weapon is overheated. 0 disables, negative values are allowed.
+                                                   // Beware that negative values makes a weapon unusable should it overheat if it doesn't also have negative LoadingDef.HeatSinkRate, which does not work properly at the moment (heat does not update unless it has heat).
+                    AllowOverheatShooting = false, // Disables weapon overheating disallowing the weapon to fire. Useful if you want DegradeRof but want the weapon to keep shooting even at max heat.
                     DegradeRof = false, // Progressively lower rate of fire when over 80% heat threshold (80% of max heat).
+                    DegradeRofSettings = new DegradeSettingsDef
+                    {
+                        HeatThresholdStart = 0.8f, // Heat percentage where DegradeRof activates, until heat percentage goes below HeatThresholdEnd; mustbe between 0.00001f and 1f or it defaults to 0.8f
+                        HeatThresholdEnd = 0.4f, // Heat percentage where DegradeRof ends, until heat percentage goes back above HeatThresholdStart; must be between 0.00001f and 1f or it defaults to 0.4f
+                        RofAt0Heat = 1f, // ROF multiplier when DegradeRof is active, if heat was at 0%, NOT when it is at the start threshold; must be greater than 0 or it defaults to 1f
+                        RofAt100Heat = 0.25f, // ROF multiplier when DegradeRof is active, if heat was at 100%, NOT when it is at the end threshold; must be greater than 0 or it defaults to 0.25f
+                    },
                     ProhibitCoolingWhenOff = false, // If true, prevents blocks that are turned off from cooling down over time
                     ShotsInBurst = 0, // Use this if you don't want the weapon to fire an entire physical magazine in one go. Should not be more than your magazine capacity.
                     DelayAfterBurst = 0, // How long to spend "reloading" after each burst. Measured in game ticks (6 = 100ms, 60 = 1 seconds, etc..).

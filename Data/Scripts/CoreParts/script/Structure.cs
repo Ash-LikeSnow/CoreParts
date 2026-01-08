@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using ProtoBuf;
 using VRageMath;
 
@@ -517,6 +518,18 @@ namespace Scripts
                     [ProtoMember(26)] internal float InventoryFillAmount;
                     [ProtoMember(27)] internal float InventoryLowAmount;
                     [ProtoMember(28)] internal bool UseWorldInventoryVolumeMultiplier;
+                    [ProtoMember(29)] internal bool AllowOverheatShooting;
+                    [ProtoMember(30)] internal DegradeSettingsDef DegradeRofSettings;
+                    [ProtoMember(31)] internal float HeatSinkRateOverheatMult;
+
+                    [ProtoContract]
+                    public struct DegradeSettingsDef
+                    {
+                        [ProtoMember(1)] internal float HeatThresholdStart;
+                        [ProtoMember(2)] internal float HeatThresholdEnd;
+                        [ProtoMember(3)] internal float RofAt0Heat;
+                        [ProtoMember(4)] internal float RofAt100Heat;
+                    }
                 }
 
 
@@ -665,6 +678,9 @@ namespace Scripts
                 [ProtoMember(31)] internal bool NoGridOrArmorScaling;
                 [ProtoMember(32)] internal string TerminalName;
                 [ProtoMember(33)] internal float BaseDamageCutoff;
+                [ProtoMember(34)] internal bool IgnoreGrids;
+                [ProtoMember(35)] internal bool AllowNegativeHeatModifier;
+                [ProtoMember(36)] internal int HeatNeededToFire;
 
                 [ProtoContract]
                 public struct SynchronizeDef
@@ -960,7 +976,7 @@ namespace Scripts
                     [ProtoMember(12)] internal bool FireSound; // not used, can remove
                     [ProtoMember(13)] internal Vector3D AdvOffset;
                     [ProtoMember(14)] internal bool ArmWhenHit;
-                        
+
                     [ProtoContract]
                     public struct TimedSpawnDef
                     {
@@ -1278,6 +1294,7 @@ namespace Scripts
                     [ProtoMember(8)] internal string ShieldHitSound;
                     [ProtoMember(9)] internal string ShotSound;
                     [ProtoMember(10)] internal string WaterHitSound;
+                    [ProtoMember(11)] internal bool OverrideShotSound;
                 }
 
                 [ProtoContract]
@@ -1536,7 +1553,7 @@ namespace Scripts
                         [ProtoMember(66)] internal bool SwapNavigationType;
                         [ProtoMember(67)] internal bool ElevationRelativeToC;
                     }
-                    
+
                     [ProtoContract]
                     public struct MinesDef
                     {

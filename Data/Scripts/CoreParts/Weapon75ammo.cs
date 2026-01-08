@@ -61,7 +61,12 @@ namespace Scripts
             EnergyMagazineSize = 1, // For energy weapons, how many shots to fire before reloading.
             IgnoreWater = false, // Whether the projectile should be able to penetrate water when using WaterMod.
             IgnoreVoxels = false, // Whether the projectile should be able to penetrate voxels.
+            IgnoreGrids = false, // Disables collisions with grid and defense shields. Designed for fragments designed to time things (where a grid could disrupt) or for anti projectile weapons being able to fire through grids.
             HeatModifier = -1f, // Allows this ammo to modify the amount of heat the weapon produces per shot.
+            AllowNegativeHeatModifier = false, // Bypasses ammo.AmmoDef.HeatModifier > 0 check to allow ammo types to reduce heat on weapons. Done this way to preserve backwards compatibility.
+                                               // Useful for having ammo types that take away rather than give heat.
+            HeatNeededToFire = 0, // Makes an ammo require heat in order to be able to be fired.
+                                  // It should be noted that this does NOT subtract the heat, use AmmoDef.AllowNegativeHeatModifier to subtract the desired amount.
             NpcSafe = false, // This is you tell npc moders that your ammo was designed with them in mind, if they tell you otherwise set this to false.
             NoGridOrArmorScaling = true, // If you enable this you can remove the damagescale section entirely.
             Sync = new SynchronizeDef
@@ -704,6 +709,7 @@ namespace Scripts
                 TravelSound = "", // SubtypeID for your Sound File. Travel is sound generated around your projectile in flight
                 HitSound = "", // Default hit sound, used unless optional hit sounds below are populated.  MUST HAVE A VALUE FOR ANY HIT SOUND TO WORK! 
                 ShotSound = "", // Sound when fired
+                OverrideShotSound = false, // When true, will use this ammo's ShotSound regardless of the given weapon's shot sound, rather than only using ShotSound if the weapon's shot sound is ""
                 ShieldHitSound = "", // Shield hit
                 PlayerHitSound = "", // Player character hit
                 VoxelHitSound = "", // Voxel hit

@@ -101,9 +101,11 @@ namespace Scripts
                 IgnoreArming = true, // If true, ignore ArmOnHit or MinArmingTime in EndOfLife definitions
                 ArmWhenHit = false, // Setting this to true will arm the projectile when its shot by other projectiles.
                 AdvOffset = Vector(x: 0, y: 0, z: 0), // advanced offsets the fragment by xyz coordinates relative to parent, value is read from fragment ammo type.
+                AdvRotationOffset = Vector2(x: 0, y: 0), // advanced rotation, rotates fragment forward direction relative to parent, value is read from fragment ammo type. X is left/right, Y is up/down. Up is usually relative to the firing block's muzzle
                 TimedSpawns = new TimedSpawnDef // disables FragOnEnd in favor of info specified below, unless ArmWhenHit or Eol ArmOnlyOnHit is set to true then both kinds of frags are active
                 {
                     Enable = true, // Enables TimedSpawns mechanism
+                                   // The ammo MUST be smart for this to be used
                     Interval = 0, // Time between spawning fragments, in ticks, 0 means every tick, 1 means every other
                     StartTime = 0, // Time delay to start spawning fragments, in ticks, of total projectile life
                     MaxSpawns = 1, // Max number of fragment children to spawn
@@ -121,7 +123,12 @@ namespace Scripts
                 Patterns = new[] { // If enabled, set of multiple ammos to fire in order instead of the main ammo.
                     "",
                 },
-                Mode = Fragment, // Select when to activate this pattern, options: Never, Weapon, Fragment, Both 
+                Mode = Fragment, // Select when to activate this pattern, options:
+                // Weapon - Pattern will be applied to the weapon firing.Useful for mixed belts like tracer - solid - solid, or for having virtual beams akin to real-virtual (x14)
+                // Fragment - Pattern will be applied when the weapon fragments.Can be used for fragment RNG, drones having different weapons, or for having the weapon split off into multiple different fragments
+                // Both - Pattern will be applied to both weapon and fragment
+                // Never - Turns off this feature
+
                 TriggerChance = 1f, // This is %
                 Random = false, // This randomizes the number spawned at once, NOT the list order.
                 RandomMin = 1, 
@@ -135,6 +142,7 @@ namespace Scripts
                 DamageVoxels = false, // Whether to damage voxels.
                 SelfDamage = false, // Whether to damage the weapon's own grid.
                 HealthHitModifier = 0.5, // How much Health to subtract from another projectile on hit; defaults to 1 if zero or less.
+                                         // AOE also subtracts this value from projectiles in the radius.
                 VoxelHitModifier = 1, // Voxel damage multiplier; defaults to 1 if zero or less.
                 Characters = -1f, // Character damage multiplier; defaults to 1 if zero or less.
                 // For the following modifier values: -1 = disabled (higher performance), 0 = no damage, 0.01f = 1% damage, 2 = 200% damage.
@@ -206,13 +214,14 @@ namespace Scripts
                     Damage = 5f,
                     Depth = 1f, // Max depth of AOE effect, in meters. 0=disabled, and AOE effect will reach to a depth of the radius value
                     MaxAbsorb = 64000f, // Soft cutoff for damage (total, against shields or grids), except for pooled falloff.  If pooled falloff, limits max damage per block.
-                    Falloff = Pooled, //.NoFalloff applies the same damage to all blocks in radius
-                    //.Linear drops evenly by distance from center out to max radius
-                    //.Curve drops off damage sharply as it approaches the max radius
-                    //.InvCurve drops off sharply from the middle and tapers to max radius
-                    //.Squeeze does little damage to the middle, but rapidly increases damage toward max radius
-                    //.Pooled damage behaves in a pooled manner that once exhausted damage ceases.
-                    //.Exponential drops off exponentially.  Does not scale to max radius
+                    Falloff = Pooled, // Options:
+                    // NoFalloff applies the same damage to all blocks in radius
+                    // Linear drops evenly by distance from center out to max radius
+                    // Curve drops off damage sharply as it approaches the max radius
+                    // InvCurve drops off sharply from the middle and tapers to max radius
+                    // Squeeze does little damage to the middle, but rapidly increases damage toward max radius
+                    // Pooled damage behaves in a pooled manner that once exhausted damage ceases.
+                    // Exponential drops off exponentially.  Does not scale to max radius
                     Shape = Diamond, // Round or Diamond shape.  Diamond is more performance friendly.
                 },
                 EndOfLife = new EndOfLifeDef
@@ -222,13 +231,14 @@ namespace Scripts
                     Damage = 5f,
                     Depth = 1f, // Max depth of AOE effect, in meters. 0=disabled, and AOE effect will reach to a depth of the radius value
                     MaxAbsorb = 64000f, // Soft cutoff for damage (total, against shields or grids), except for pooled falloff.  If pooled falloff, limits max damage per block.
-                    Falloff = Pooled, //.NoFalloff applies the same damage to all blocks in radius
-                    //.Linear drops evenly by distance from center out to max radius
-                    //.Curve drops off damage sharply as it approaches the max radius
-                    //.InvCurve drops off sharply from the middle and tapers to max radius
-                    //.Squeeze does little damage to the middle, but rapidly increases damage toward max radius
-                    //.Pooled damage behaves in a pooled manner that once exhausted damage ceases.
-                    //.Exponential drops off exponentially.  Does not scale to max radius
+                    Falloff = Pooled, // Options:
+                    // NoFalloff applies the same damage to all blocks in radius
+                    // Linear drops evenly by distance from center out to max radius
+                    // Curve drops off damage sharply as it approaches the max radius
+                    // InvCurve drops off sharply from the middle and tapers to max radius
+                    // Squeeze does little damage to the middle, but rapidly increases damage toward max radius
+                    // Pooled damage behaves in a pooled manner that once exhausted damage ceases.
+                    // Exponential drops off exponentially.  Does not scale to max radius
                     ArmOnlyOnHit = false, // Detonation only is available, After it hits something, when this is true. IE, if shot down, it won't explode.
                     MinArmingTime = 100, // In ticks, before the Ammo is allowed to explode, detonate or similar; This affects shrapnel spawning.
                     NoVisuals = false,
@@ -305,7 +315,14 @@ namespace Scripts
             },
             Trajectory = new TrajectoryDef
             {
-                Guidance = None, // None, Remote, TravelTo, Smart, DetectTravelTo, DetectSmart, DetectFixed
+                Guidance = None, // Options:
+                // None - No guidance or smart behavior. Use for standard shells
+                // Remote - not implimented
+                // TravelTo - Tracks the aim point of the ammo's target when fired, useful for flak rounds and such
+                // Smart - Guided projectile, based on properties in Smarts or Approaches
+                // DetectTravelTo - Mines; unknown due to no documentation. Please test these and report results to the discord
+                // DetectSmart - Mines; unknown due to no documentation. Please test these and report results to the discord
+                // DetectFixed - Mines; unknown due to no documentation. Please test these and report results to the discord
                 TargetLossDegree = 80f, // Degrees, Is pointed forward
                 TargetLossTime = 0, // 0 is disabled, Measured in game ticks (6 = 100ms, 60 = 1 seconds, etc..).
                 MaxLifeTime = 900, // 0 is disabled, Measured in game ticks (6 = 100ms, 60 = 1 seconds, etc..). time begins at 0 and time must EXCEED this value to trigger "time > maxValue". Please have a value for this, It stops Bad things.
@@ -317,7 +334,9 @@ namespace Scripts
                 SpeedVariance = Random(start: 0, end: 0), // subtracts value from DesiredSpeed. Be warned, you can make your projectile go backwards.
                 RangeVariance = Random(start: 0, end: 0), // subtracts value from MaxTrajectory
                 MaxTrajectoryTime = 0, // How long the weapon must fire before it reaches MaxTrajectory.
-                TotalAcceleration = 1234.5, // 0 means no limit, something to do due with a thing called delta and something called v.
+                TotalAcceleration = 1234.5, // Limits how much acceleration (in m/s) can be applied (aka delta-v), and counts BOTH straight line acceleration and turning.
+                                            // Note that drag is not modelled, and projectiles do not constantly "thrust."
+                                            // ONLY usable on Smart ammos, and 0 disables
                 DragPerSecond = 0f, // Amount of drag (m/s) deducted from the projectile's speed, multiplied by age.  Will not go below zero/negative.  Note that turrets will not be able to reliably account for this with non-smart ammo.
                 DragMinSpeed = 0f, // If DragPerSecond is used, the projectiles speed will never go below this value in m/s
                 Smarts = new SmartsDef
@@ -650,10 +669,12 @@ namespace Scripts
 
                     Tracer = new TracerBaseDef
                     {
-                        Enable = true,
-                        Length = 5f, //
-                        Width = 0.1f, //
+                        Enable = true, // If this is false, Trail is also not used.
+                                       // If you want tracer but no trail, set width and color here to zero to disable tracer render while keeping trail
+                        Length = 5f, // Length in meters to draw the tracer, goes from projectile center to projectile backwards * length
+                        Width = 0.1f, // Width in arbitrary keen™ units
                         Color = Color(red: 3, green: 2, blue: 1f, alpha: 1), // RBG 255 is Neon Glowing, 100 is Quite Bright.
+                                                                             // For no glow, use 0-1
                         FactionColor = DontUse, // DontUse, Foreground, Background.
                         VisualFadeStart = 0, // Number of ticks the weapon has been firing before projectiles begin to fade their color
                         VisualFadeEnd = 0, // How many ticks after fade began before it will be invisible.
@@ -661,7 +682,11 @@ namespace Scripts
                         Textures = new[] {// WeaponLaser, ProjectileTrailLine, WarpBubble, etc..
                             "WeaponLaser", // Please always have this Line set, if this Section is enabled.
                         },
-                        TextureMode = Normal, // Normal, Cycle, Chaos, Wave
+                        TextureMode = Normal,
+                        // Normal - only use the first texture SubtypeID
+                        // Cycle - Cycles through every texture and then goes back to the beginning(0, 1, 2, ..., n, 0, 1, 2)
+                        // Wave - Goes from start to finish and then back to start(0, 1, 2, ..., n, n - 1, n - 2, ..., 2, 1, 0)
+                        // Chaos - Random selection
                         Segmentation = new SegmentDef
                         {
                             Enable = false, // If true Tracer TextureMode is ignored
@@ -688,19 +713,30 @@ namespace Scripts
                             "", // Please always have this Line set, if this Section is enabled.
                         },
                         TextureMode = Normal,
+                        // Normal - only use the first texture SubtypeID
+                        // Cycle - Cycles through every texture and then goes back to the beginning(0, 1, 2, ..., n, 0, 1, 2)
+                        // Wave - Goes from start to finish and then back to start(0, 1, 2, ..., n, n - 1, n - 2, ..., 2, 1, 0)
+                        // Chaos - Random selection
                         DecayTime = 3, // In Ticks. 1 = 1 Additional Tracer generated per motion, 33 is 33 lines drawn per projectile. Keep this number low.
                         Color = Color(red: 0, green: 0, blue: 1, alpha: 1),
                         FactionColor = DontUse, // DontUse, Foreground, Background.
                         Back = false,
-                        CustomWidth = 0,
-                        UseWidthVariance = false,
-                        UseColorFade = true,
+                        CustomWidth = 0, // Same as Tracer Width for the Trail at t=0
+                        UseWidthVariance = false, // Use above defined WidthVariance
+                        UseColorFade = true, // Instead of fading via reducing line width (lerp from CustomWidth to 0), reduces color to black and transparent
                     },
                     OffsetEffect = new OffsetEffectDef
                     {
-                        MaxOffset = 0,// 0 offset value disables this effect
+                        //This allows for lightning-like effects on the base tracer only, NOT trail.
+
+                        MaxOffset = 0,// 0 offset value disables this effect, determines how far the offset is from the projectile.
                         MinLength = 0.2f,
-                        MaxLength = 3,
+                        MaxLength = 3, // MinLength and MaxLength determine the minimum and maximum length between segments.
+                                       // Note that smaller values on large tracers mean that many more billboards are used per projectile, see above.
+                                       // Divide Tracer Length by MinLength to get the maximum amount of billboards seen per tick.
+
+                        // Note: The segmentation starts at the back of the projectile (or start of the beam) and so long as there is some distance left of the tracer to cover with
+                        // OffsetEffect then it will fill it without regard to how much distance is left. In other words, this effect can overshoot the front of the projectile (or end of the beam).
                     },
                 },
             },
@@ -730,7 +766,7 @@ namespace Scripts
 
                 CompDef = new ComponentDef
                 {
-                    ItemName = "", //InventoryComponent name
+                    ItemName = "", // InventoryComponent name
                     ItemLifeTime = 0, // how long item should exist in world
                     Delay = 0, // delay in ticks after shot before ejected
                 }

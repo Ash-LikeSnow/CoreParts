@@ -46,9 +46,11 @@ namespace Scripts {
             {
                 Threats = new[] {
                     Grids, // Types of threat to engage: Grids, Projectiles, Characters, Meteors, Neutrals, ScanRoid, ScanPlanet, ScanFriendlyCharacter, ScanFriendlyGrid, ScanEnemyCharacter, ScanEnemyGrid, ScanNeutralCharacter, ScanNeutralGrid, ScanUnOwnedGrid, ScanOwnersGrid
+                           // Grids are both LG and SG. Use Hardpoint.Other.ProhibitLGTargeting and Use Hardpoint.Other.ProhibitSGTargeting to further differentiate
                 },
                 SubSystems = new[] {
                     Thrust, Utility, Offense, Power, Production, Any, // Subsystem targeting priority: Offense, Utility, Power, Production, Thrust, Jumping, Steering, Any
+                                                                      // Order matters! With the current setting weapons will target Thrust first, then Utility, then Offense, etc.
                 },
                 ClosestFirst = true, // Tries to pick closest targets first (blocks on grids, projectiles, etc...).
                 IgnoreDumbProjectiles = false, // Don't fire at non-smart projectiles.
@@ -211,9 +213,9 @@ namespace Scripts {
                     FiringSound = "WepShipGatlingShot", // Audio for firing.
                     FiringSoundPerShot = true, // Whether to replay the sound for each shot, or just loop over the entire track while firing.
                     ReloadSound = "", // Sound SubtypeID, for when your Weapon is in a reloading state
-                    NoAmmoSound = "",
+                    NoAmmoSound = "", // Sound for if the user attempts to fire the gun without ammo
                     HardPointRotationSound = "WepTurretGatlingRotate", // Audio played when turret is moving.
-                    BarrelRotationSound = "WepShipGatlingRotation",
+                    BarrelRotationSound = "WepShipGatlingRotation", // Sound played when the barrel rotates
                     FireSoundEndDelay = 120, // How long the firing audio should keep playing after firing stops. Measured in game ticks(6 = 100ms, 60 = 1 seconds, etc..).
                     FireSoundNoBurst = true, // Don't stop firing sound from looping when delaying after burst.
                 },

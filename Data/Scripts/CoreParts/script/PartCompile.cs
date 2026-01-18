@@ -68,7 +68,10 @@ namespace Scripts
         {
             return new Vector3D(x, y, z);
         }
-
+        internal Vector2D Vector2(double x, double y)
+        {
+            return new Vector2D(x, y);
+        }
         internal XYZ Transformation(double X, double Y, double Z)
         {
             return new XYZ { x = X, y = Y, z = Z };

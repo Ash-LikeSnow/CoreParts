@@ -101,6 +101,7 @@ namespace Scripts
                 IgnoreArming = true, // If true, ignore ArmOnHit or MinArmingTime in EndOfLife definitions
                 ArmWhenHit = false, // Setting this to true will arm the projectile when its shot by other projectiles.
                 AdvOffset = Vector(x: 0, y: 0, z: 0), // advanced offsets the fragment by xyz coordinates relative to parent, value is read from fragment ammo type.
+                AdvRotationOffset = Vector2(x: 0, y: 0), // advanced rotation, rotates fragment forward direction relative to parent, value is read from fragment ammo type. X is left/right, Y is up/down. Up is usually relative to the firing block's muzzle
                 TimedSpawns = new TimedSpawnDef // disables FragOnEnd in favor of info specified below, unless ArmWhenHit or Eol ArmOnlyOnHit is set to true then both kinds of frags are active
                 {
                     Enable = true, // Enables TimedSpawns mechanism

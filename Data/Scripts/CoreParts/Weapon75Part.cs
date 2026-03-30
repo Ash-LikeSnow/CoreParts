@@ -122,6 +122,7 @@ namespace Scripts {
                     DefaultLeadGroup = 0, // Default LeadGroup setting, range 0-5, 0 is disables lead group.  Only useful for fixed weapons or weapons set to OverrideLeads.
                     TargetGridCenter = false, // Does not target blocks, instead it targets grid center.
                     PainterUseMaxTargeting = false, //If enabled, painter will utilize the lesser of the weapons targeting max dist or projectile trajectory.  By default painter can be used out to the projectiles max trajectory.
+                    UseLimitlessPDSolver = false, // If enabled a more precise and expensive aiming calculation will be used for targeting projectiles.  More effective against dodging/rapidly maneuvering projectiles
                 },
                 HardWare = new HardwareDef
                 {

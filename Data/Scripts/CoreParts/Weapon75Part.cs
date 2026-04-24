@@ -63,7 +63,10 @@ namespace Scripts {
                 CycleTargets = 0, // Number of targets to check per acquire attempt before giving up for the remainder of the tick and re-rolling any RNG; 0 = unlimited
                 TopBlocks = 8, // Number of potential block targets to randomize, then go in list order; 0 = no randomization, goes in order of internal lists for block subtypes found
                 CycleBlocks = 0, // Number of blocks to check per acquire attempt before giving up for the remainder of the tick and re-rolling any RNG; 0 = unlimited
-                StopTrackingSpeed = 0, // Do not track threats traveling faster than this speed; 0 = unlimited.
+                AllowSwitchTargetPriority = false, // If true, the weapon's GUI will have a toggle allowing the player to switch between targeting closest or random (or the equivalent modes for Fire Distribution).
+                AllowFireDistribution = false, // Only for point-defense cannons. If true, the weapon's GUI will have a toggle (and additional sliders) allowing the player to enable the Fire Distribution System for point defense. Server admins: fire distribution is significantly more costly than the previous RNG-based targeting. It is also recommended to set CycleTargets to 0 since the system isn't culling targets aggressively and may fail to acquire targets otherwise.
+                AdvancedFireDistribution = false, // Only for point defense cannons and if AllowFireDistribution is true. If true, the weapon's GUI will have an Angle Cost slider, which will allow players to tweak how certain PDCs retarget, based on their turn rate and other such factors. Server admins: advanced fire distribution is significantly more costly than the normal fire distribution.
+                StopTrackingSpeed = 0, // Do not track projectiles traveling faster than this speed; 0 = unlimited.
                 UniqueTargetPerWeapon = false, // only applies to multi-weapon blocks 
                 MaxTrackingTime = 0, // After this time has been reached the weapon will stop tracking existing target and scan for a new one
                 ShootBlanks = false, // Do not generate projectiles when shooting
@@ -90,6 +93,7 @@ namespace Scripts {
             {
                 PartName = "Gatling", // Name of the weapon in terminal, should be unique for each weapon definition that shares a SubtypeId (i.e. multiweapons).
                 DeviateShotAngle = 0.2f, // Projectile inaccuracy in degrees.
+                DeviateShotAngleSGModifier = 0.4f, // Additional range of projectile inaccuracy added to DeviateShotAngle if the target is a small grid
                 AimingTolerance = 1f, // How many degrees off target a turret can fire at. 0 - 180 firing angle.
                 AimLeadingPrediction = Accurate, // Level of turret aim prediction; Off (aim straight at target), Basic (doesn't account for target acceleration), Accurate, Advanced (these last two are identical)
                 DelayCeaseFire = 0, // Measured in game ticks (6 = 100ms, 60 = 1 second, etc..). Length of time the weapon continues firing after trigger is released - while a target is available.

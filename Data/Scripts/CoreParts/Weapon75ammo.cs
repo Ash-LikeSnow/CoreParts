@@ -71,16 +71,17 @@ namespace Scripts
             NoGridOrArmorScaling = true, // If you enable this you can remove the damagescale section entirely.
             Sync = new SynchronizeDef
             {
-                Full = false, // Do not use - still in progress
-                PointDefense = false, // Server will inform clients of what projectiles have died by PD defense and will trigger destruction.
-                OnHitDeath = false, // Server will inform clients when projectiles die due to them hitting something and will trigger destruction.
+                Full = false, // Use only on PD-killable (guided) projectiles that need to be replicated precisely on the client. It increases network traffic. When the projectile is fired (according to local game states), the clients don't locally spawn it, and instead, the server sends spawn packets to all clients, which spawns it exactly where the server spawned it. This also attaches a network identity to the projectile, allowing further replication, which you can control below.
+                PointDefense = false, // Only if Full is enabled. Server will inform clients of what projectiles have died by PD defense and will trigger destruction.
+                OnHitDeath = false, // Only if Full enabled. Server will inform clients when projectiles die due to them hitting something and will trigger destruction.
+                PositionSyncInterval = 0, // Only if Full is enabled. The interval for sending the position and velocity of Full torpedoes. Use carefully, since this adds constant network traffic while the torpedo is in flight. Set to 0 to disable.
+                PositionPatchWindow = 0, // Only if Full is enabled. When a client receives a position update and the difference is large, the client will try to reconcile the torpedo over this window. This must be lower than the position sync interval. Set to 0 to disable.
+                PositionUpdateOnRandomize = false, // Only if Full is enabled. When new random offsets are calculated by homing projectiles, sends an update with them, which will reduce overall deltas. The periodic position update itself also contains those deltas, so only use this if your projectile refreshes random positions quite often.
             },
             Shape = new ShapeDef // Defines the collision shape of the projectile, defaults to LineShape and uses the visual Line Length if set to 0.
             {
-                Shape = LineShape, // LineShape or SphereShape. Do not use SphereShape for fast moving projectiles if you care about precision.
-                Diameter = 1, // For SphereShape this is diameter.
-                              // For LineShape it is total length (double this value when setting up MaximumDiameter for weapon targeting).
-                              // Defaults to 1 if left zero or deleted.
+                Shape = LineShape, // LineShape or SphereShape. LineShape is deprecated. It boils down to a sphere, which has a diameter calculated from the speed of the torpedo, to be close to the old behavior (for backwards compatibility).
+                Diameter = 1, // For SphereShape this is diameter. LineShape ignores this.
             },
             ObjectsHit = new ObjectsHitDef
             {

@@ -5,14 +5,16 @@ using static Scripts.Structure.WeaponDefinition.HardPointDef;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.Prediction;
 using static Scripts.Structure.WeaponDefinition.TargetingDef.BlockTypes;
 using static Scripts.Structure.WeaponDefinition.TargetingDef.Threat;
+using static Scripts.Structure.WeaponDefinition.TargetingDef.WhitelistSystem;
 using static Scripts.Structure.WeaponDefinition.TargetingDef;
 using static Scripts.Structure.WeaponDefinition.TargetingDef.CommunicationDef.Comms;
 using static Scripts.Structure.WeaponDefinition.TargetingDef.CommunicationDef.SecurityMode;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.HardwareDef;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.HardwareDef.HardwareType;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.LoadingDef;
+using static Scripts.Structure.WeaponDefinition.HardPointDef.UiDef;
 
-namespace Scripts {   
+namespace Scripts {
     partial class Parts {
         // Don't edit above this line
         WeaponDefinition Weapon75 => new WeaponDefinition
@@ -45,15 +47,42 @@ namespace Scripts {
             Targeting = new TargetingDef
             {
                 Threats = new[] {
-                    Grids, // Types of threat to engage: Grids, Projectiles, Characters, Meteors, Neutrals, ScanRoid, ScanPlanet, ScanFriendlyCharacter, ScanFriendlyGrid, ScanEnemyCharacter, ScanEnemyGrid, ScanNeutralCharacter, ScanNeutralGrid, ScanUnOwnedGrid, ScanOwnersGrid
+                    Grids, Projectiles // Types of threat to engage: Grids, Projectiles, Characters, Meteors, Neutrals, ScanRoid, ScanPlanet, ScanFriendlyCharacter, ScanFriendlyGrid, ScanEnemyCharacter, ScanEnemyGrid, ScanNeutralCharacter, ScanNeutralGrid, ScanUnOwnedGrid, ScanOwnersGrid
                            // Grids are both LG and SG. Use Hardpoint.Other.ProhibitLGTargeting and Use Hardpoint.Other.ProhibitSGTargeting to further differentiate
                 },
+                // ProjectileTags you to further specify what Projectiles to target if Projectiles is listed above.
+                // These tags are set in ProjectileTags.cs, and are futher elaborated there.
+                // This allows you to fine tune what your PDC will fire at.
+                // This is NOT a priority system, items higher on the list are not prioritized whatosever!
+                // Note: Atleast one value is needed or this fails to compile. The defaults are not really used.
+                // Note: Consider this an extension (and depreciation) of IgnoreDumbProjectiles. If you want to emulate IgnoreDumbProjectiles behavior w/ more tags, add the tags "wc:smart" and "wc:drone" to the list and set ProjectileTagsMeaning to Whitelist
+                ProjectileTagsList = new[]
+                {
+                    "namespace1:tag1",
+                    "namespace1:tag2",
+                    "namespace2:tag1",
+                    "namespace2:tag2",
+
+                    // These five are automatically set tags by weaponcore according to their guidance type. Uncomment them to use
+                    //"wc:dumb", // set if GuidanceType == None
+                    //"wc:smart", // set if GuidanceType == Smart
+                    //"wc:drone", // set if GuidanceType == DroneAdvanced
+                    //"wc:mine", // set if GuidanceType is any of the mine types
+                    //"wc:travelto", // set if GuidanceType == TravelTo
+                },
+                // This sets what ProjectileTagsList is interpeted as. Values:
+                // BlacklistOr - this weapon will NOT fire at any projectile if it has atleast one of the above tags
+                // BlacklistAnd - this weapon will NOT fire at any projectile if it has ALL of the above flags
+                // WhitelistOr - this weapon will ONLY fire at a projectile if it has atleast one of the above tags
+                // WhitelistAnd - this weapon will ONLY fire at a projectile if it has ALL of the above tags
+                // If you don't want to use this system, leave it on Blacklist!
+                ProjectileTagsMeaning = BlacklistOr,
                 SubSystems = new[] {
                     Thrust, Utility, Offense, Power, Production, Any, // Subsystem targeting priority: Offense, Utility, Power, Production, Thrust, Jumping, Steering, Any
                                                                       // Order matters! With the current setting weapons will target Thrust first, then Utility, then Offense, etc.
                 },
                 ClosestFirst = true, // Tries to pick closest targets first (blocks on grids, projectiles, etc...).
-                IgnoreDumbProjectiles = false, // Don't fire at non-smart projectiles.
+                IgnoreDumbProjectiles = false,  // Don't fire at non-smart projectiles. If you're using projectile tags, ensure this is set to false as this overwrites the newer system
                 LockedSmartOnly = false, // Only fire at smart projectiles that are locked on to parent grid.
                 MinimumDiameter = 0, // Minimum diameter of threat to engage.
                 MaximumDiameter = 0, // Maximum diameter of threat to engage; 0 = unlimited.
@@ -91,6 +120,12 @@ namespace Scripts {
             },
             HardPoint = new HardPointDef
             {
+                // If there are multiple definitions with the same part name & subtype ID (like say someone is adjusting stats of another's mod), then the definition with the highest priority will be loaded.
+                // For people making their own mod, its recommended to leave this at zero.
+                // For people MODIFYING other people's mod, its recommended to set this at anything greater than zero (ie. 1) so your changes override the original mod, and list that mod as a dependency.
+                // This effectively allows mod adjuster-like behavior without relying on mod load order, although the entire definition must be copied for it to work properly
+                //  - those modifying stats can just have the definitions in their place w/o copying any models, sbc files, or sounds to the modified mod.
+                DefinitionPriority = 0,
                 PartName = "Gatling", // Name of the weapon in terminal, should be unique for each weapon definition that shares a SubtypeId (i.e. multiweapons).
                 DeviateShotAngle = 0.2f, // Projectile inaccuracy in degrees.
                 DeviateShotAngleSGModifier = 0.4f, // Additional range of projectile inaccuracy added to DeviateShotAngle if the target is a small grid
@@ -113,6 +148,35 @@ namespace Scripts {
                     DisableSupportingPD = false, // If true, the supporting point defense terminal option will be removed and this weapon will only target projectiles targeting the construct it's placed on
                     ProhibitShotDelay = false, // If true, removes shot delay options for players.  This may be desirable for weapons that use heat or bursts as a balance mechanic and deliberately do not offer the ROF slider.
                     ProhibitBurstCount = false, // If true, removes burst shot count options for players.
+                    UiSetTags = new UiSetTagsDef
+                    {
+                        // Enables user toggles for ProjectileTags
+                        Enable = false,
+                        // ProjectileTags you to further specify what Projectiles to target if Projectiles is listed above.
+                        // These tags are set in ProjectileTags.cs, and are futher elaborated there.
+                        // This allows you to fine tune what your PDC will fire at.
+                        // This is NOT a priority system, items higher on the list are not prioritized whatosever!
+                        // Note: Atleast one value is needed or this fails to compile.
+                        ProjectileTagsList = new[]
+                        {
+                            "namespace1:tag1",
+                            "namespace1:tag2",
+                            "namespace2:tag1",
+                            "namespace2:tag2",
+
+                            // These five are automatically set tags by weaponcore according to their guidance type. Uncomment them to use
+                            //"wc:dumb", // set if GuidanceType == None
+                            //"wc:smart", // set if GuidanceType == Smart
+                            //"wc:drone", // set if GuidanceType == DroneAdvanced
+                            //"wc:mine", // set if GuidanceType is any of the mine types
+                            //"wc:travelto", // set if GuidanceType == TravelTo
+                        },
+                        // If false, then the above list will be the only tags the user can determine. If true, then the user can determine every tag BUT the ones listed above
+                        ListIsBlacklist = false,
+
+                        // This allows the user to set what ProjectileTagsList is interpeted as if true. Atm you cannot remove options from the list (Blacklist, WhitelistOr, WhitelistAnd)
+                        AllowUserWhitelistChange = false,
+                    }
                 },
                 Ai = new AiDef
                 {

@@ -14,6 +14,8 @@ namespace Scripts
             ArmorDefinitions(Armor1, Armor2);
             SupportDefinitions(ArmorEnhancer1A);
             UpgradeDefinitions(Upgrade75a, Upgrade75b);
+            ProjectileTags(ExampleTag1Def);
+            ProjectileTagAssignments(TagAssignments);
         }
     }
 }

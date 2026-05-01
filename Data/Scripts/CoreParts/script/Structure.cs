@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using KeenSoftwareHouse.Library.Extensions;
 using ProtoBuf;
 using VRageMath;
 
@@ -14,6 +16,29 @@ namespace Scripts
             [ProtoMember(2)] internal ArmorDefinition[] ArmorDefs;
             [ProtoMember(3)] internal UpgradeDefinition[] UpgradeDefs;
             [ProtoMember(4)] internal SupportDefinition[] SupportDefs;
+            [ProtoMember(5)] internal ProjectileTagDefinition[] ProjectileTags;
+            [ProtoMember(6)] internal ProjectileTagAssignment[] TagAssigmnents;
+        }
+
+        [ProtoContract]
+        public class ProjectileTagDefinition
+        {
+            [ProtoMember(1)] internal Tag Namespace;
+            [ProtoMember(2)] internal int DefinitionPriority;
+            [ProtoMember(3)] internal Tag[] Tags;
+
+            [ProtoContract]
+            public struct Tag
+            {
+                [ProtoMember(1)] internal string ID;
+                [ProtoMember(2)] internal string PublicName;
+            }
+        }
+        [ProtoContract]
+        public class ProjectileTagAssignment
+        {
+            [ProtoMember(1)] internal string Tag;
+            [ProtoMember(2)] internal string[] ProjectileAmmoNames;
         }
 
         [ProtoContract]
@@ -57,7 +82,7 @@ namespace Scripts
                 [ProtoMember(2)] internal HardwareDef HardWare;
                 [ProtoMember(3)] internal UiDef Ui;
                 [ProtoMember(4)] internal OtherDef Other;
-
+                [ProtoMember(5)] internal int DefinitionPriority;
 
                 [ProtoContract]
                 public struct UiDef
@@ -77,6 +102,7 @@ namespace Scripts
                     [ProtoMember(2)] internal HardwareType Type;
                     [ProtoMember(3)] internal int BlockDistance;
                     [ProtoMember(4)] internal float IdlePower;
+
                 }
 
                 [ProtoContract]
@@ -91,7 +117,6 @@ namespace Scripts
                     [ProtoMember(7)] internal bool StayCharged;
                 }
             }
-
         }
 
         [ProtoContract]
@@ -124,6 +149,7 @@ namespace Scripts
                 [ProtoMember(2)] internal HardwareDef HardWare;
                 [ProtoMember(3)] internal UiDef Ui;
                 [ProtoMember(4)] internal OtherDef Other;
+                [ProtoMember(5)] internal int DefinitionPriority;
 
                 [ProtoContract]
                 public struct UiDef
@@ -199,6 +225,7 @@ namespace Scripts
             [ProtoMember(2)] internal ArmorType Kind;
             [ProtoMember(3)] internal double KineticResistance;
             [ProtoMember(4)] internal double EnergeticResistance;
+            [ProtoMember(5)] internal int DefinitionPriority;
         }
 
         [ProtoContract]
@@ -254,7 +281,7 @@ namespace Scripts
                     ScanEnemyGrid,
                     ScanNeutralCharacter,
                     ScanUnOwnedGrid,
-                    ScanOwnersGrid
+                    ScanOwnersGrid,
                 }
 
                 public enum BlockTypes
@@ -267,6 +294,14 @@ namespace Scripts
                     Thrust,
                     Jumping,
                     Steering
+                }
+
+                public enum WhitelistSystem
+                {
+                    BlacklistOr = 0,
+                    BlacklistAnd = 1,
+                    WhitelistOr = 2,
+                    WhitelistAnd = 3,
                 }
 
                 [ProtoMember(1)] internal int TopTargets;
@@ -284,6 +319,9 @@ namespace Scripts
                 [ProtoMember(13)] internal bool UniqueTargetPerWeapon;
                 [ProtoMember(14)] internal int MaxTrackingTime;
                 [ProtoMember(15)] internal bool ShootBlanks;
+                //[ProtoMember(16)] internal bool ExportTargets;
+                //[ProtoMember(17)] internal string ChannelId;
+                //[ProtoMember(18)] internal int ExportLimit;
                 [ProtoMember(19)] internal CommunicationDef Communications;
                 [ProtoMember(20)] internal bool FocusOnly;
                 [ProtoMember(21)] internal bool EvictUniqueTargets;
@@ -292,7 +330,9 @@ namespace Scripts
                 [ProtoMember(24)] internal bool AllowSwitchTargetPriority;
                 [ProtoMember(25)] internal bool AllowFireDistribution;
                 [ProtoMember(26)] internal bool AdvancedFireDistribution;
-                
+                [ProtoMember(27)] internal string[] ProjectileTagsList;
+                [ProtoMember(28)] internal WhitelistSystem ProjectileTagsMeaning;
+
                 [ProtoContract]
                 public struct CommunicationDef
                 {
@@ -326,6 +366,7 @@ namespace Scripts
                     [ProtoMember(11)] internal bool TargetPersists;
                     [ProtoMember(12)] internal bool StoreLimitPerBlock;
                     [ProtoMember(13)] internal int MaxConnections;
+
                 }
             }
 
@@ -385,6 +426,7 @@ namespace Scripts
                     [ProtoMember(8)] internal EventTriggers[] TriggerOnce;
                     [ProtoMember(9)] internal EventTriggers[] ResetEmissives;
                     [ProtoMember(10)] internal ResetConditions Resets;
+
                 }
 
                 [ProtoContract]
@@ -488,8 +530,9 @@ namespace Scripts
                 [ProtoMember(14)] internal bool CanShootSubmerged;
                 [ProtoMember(15)] internal bool NpcSafe;
                 [ProtoMember(16)] internal bool ScanTrackOnly;
-                [ProtoMember(17)] internal bool CanTargetSubmerged; 
+                [ProtoMember(17)] internal bool CanTargetSubmerged;
                 [ProtoMember(18)] internal float DeviateShotAngleSGModifier;
+                [ProtoMember(19)] internal int DefinitionPriority;
 
                 [ProtoContract]
                 public struct LoadingDef
@@ -533,6 +576,9 @@ namespace Scripts
                         [ProtoMember(2)] internal float HeatThresholdEnd;
                         [ProtoMember(3)] internal float RofAt0Heat;
                         [ProtoMember(4)] internal float RofAt100Heat;
+
+                        // if DegradeRof is active (heat went above HeatThresholdStart and has not went below HeatThresholdEnd,
+                        // then lerp between RofAt0Heat and RofAt100Heat using heat percentage.
                     }
                 }
 
@@ -550,6 +596,16 @@ namespace Scripts
                     [ProtoMember(8)] internal bool DisableSupportingPD;
                     [ProtoMember(9)] internal bool ProhibitShotDelay;
                     [ProtoMember(10)] internal bool ProhibitBurstCount;
+                    [ProtoMember(11)] internal UiSetTagsDef UiSetTags;
+
+                    [ProtoContract]
+                    public struct UiSetTagsDef
+                    {
+                        [ProtoMember(1)] internal bool Enable;
+                        [ProtoMember(2)] internal string[] ProjectileTagsList;
+                        [ProtoMember(3)] internal bool ListIsBlacklist;
+                        [ProtoMember(4)] internal bool AllowUserWhitelistChange;
+                    }
                 }
 
 
@@ -687,6 +743,7 @@ namespace Scripts
                 [ProtoMember(35)] internal bool AllowNegativeHeatModifier;
                 [ProtoMember(36)] internal int HeatNeededToFire;
 
+
                 [ProtoContract]
                 public struct SynchronizeDef
                 {
@@ -761,7 +818,6 @@ namespace Scripts
                         {
                             Energy,
                             Kinetic,
-                            ShieldDefault,
                         }
 
                         [ProtoMember(1)] internal Damage Base;
@@ -879,7 +935,6 @@ namespace Scripts
                         [ProtoMember(6)] internal OffsetEffectDef OffsetEffect;
                         [ProtoMember(7)] internal bool DropParentVelocity;
 
-
                         [ProtoContract]
                         public struct OffsetEffectDef
                         {
@@ -981,7 +1036,7 @@ namespace Scripts
                     [ProtoMember(9)] internal float Offset;
                     [ProtoMember(10)] internal int MaxChildren;
                     [ProtoMember(11)] internal TimedSpawnDef TimedSpawns;
-                    [ProtoMember(12)] internal bool FireSound; // not used, can remove
+                    [ProtoMember(12)] internal bool FireSound; // not used can remove
                     [ProtoMember(13)] internal Vector3D AdvOffset;
                     [ProtoMember(14)] internal bool ArmWhenHit;
                     [ProtoMember(15)] internal Vector2D AdvRotationOffset;
@@ -1049,6 +1104,7 @@ namespace Scripts
                     [ProtoMember(7)] internal Vector3D Rotation;
                     [ProtoMember(8)] internal Randomize RotationVariance;
 
+
                     [ProtoContract]
                     public struct ComponentDef
                     {
@@ -1072,6 +1128,7 @@ namespace Scripts
                         Pooled,
                         Exponential,
                     }
+
                     public enum AoeShape
                     {
                         Round,
@@ -1091,6 +1148,7 @@ namespace Scripts
                         [ProtoMember(5)] internal float MaxAbsorb;
                         [ProtoMember(6)] internal Falloff Falloff;
                         [ProtoMember(7)] internal AoeShape Shape;
+
                     }
 
                     [ProtoContract]
@@ -1129,7 +1187,7 @@ namespace Scripts
                         Push,
                         Pull,
                         Tractor,
-                        AntiSmartv2
+                        AntiSmartv2,
                     }
 
                     public enum EwarMode
@@ -1337,7 +1395,7 @@ namespace Scripts
                     [ProtoMember(14)] internal uint MaxTrajectoryTime;
                     [ProtoMember(15)] internal ApproachDef[] Approaches;
                     [ProtoMember(16)] internal double TotalAcceleration;
-                    [ProtoMember(17)] internal OnHitDef OnHit; // Deprecated
+                    [ProtoMember(17)] internal OnHitDef OnHit; //Deprecated
                     [ProtoMember(18)] internal float DragPerSecond;
                     [ProtoMember(19)] internal float DragMinSpeed;
 

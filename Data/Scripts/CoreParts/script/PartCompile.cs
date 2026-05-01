@@ -8,6 +8,7 @@ using static Scripts.Structure.WeaponDefinition.AnimationDef.PartAnimationSetDef
 using static Scripts.Structure.WeaponDefinition.AnimationDef;
 using static Scripts.Structure.WeaponDefinition.AnimationDef.PartAnimationSetDef.EventTriggers;
 using static Scripts.Structure.ArmorDefinition.ArmorType;
+using System.Linq;
 
 namespace Scripts
 {
@@ -32,6 +33,21 @@ namespace Scripts
         internal void UpgradeDefinitions(params UpgradeDefinition[] defs)
         {
             Container.UpgradeDefs = defs;
+        }
+
+        internal void ProjectileTags(params ProjectileTagDefinition[] defs)
+        {
+            Container.ProjectileTags = defs;
+        }
+        internal IEnumerable<T> Compile<T>(params IEnumerable<T>[] defs)
+        {
+            foreach (var arr in defs)
+                foreach (var def in arr)
+                    yield return def;
+        }
+        internal void ProjectileTagAssignments(params IEnumerable<ProjectileTagAssignment>[] defs)
+        {
+            Container.TagAssigmnents = Compile(defs).ToArray();
         }
 
         internal static void GetBaseDefinitions(out ContainerDefinition baseDefs)

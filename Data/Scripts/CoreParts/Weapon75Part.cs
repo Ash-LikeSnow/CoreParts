@@ -225,7 +225,8 @@ namespace Scripts {
                     EnergyPriority = 0, // Deprecated.
                     MuzzleCheck = false, // Whether the weapon should check LOS from each individual muzzle in addition to the scope.
                     AllowScopeOutsideObb = false, // If true, the actual scope position will be used regardless if it is outside the bounds of the weapon block.  If false (default) the ray origin will be adjusted to be inside the bounds.
-                    DisableLosCheck = false, // Do not perform LOS checks at all... not advised for self tracking weapons
+                    DisableLosCheck = false, // Do not perform LOS checks at all (except against its own grid)
+                    DisableOwnGridLosCheck = false, // If true, this weapon will not perform LOS checks against its own grid.
                     NoVoxelLosCheck = false, // If set to true this ignores voxels for LOS checking.. which means weapons will fire at targets behind voxels.  However, this can save cpu in some situations, use with caution. 
                     Debug = false, // Force enables debug mode - will output damage stats to WC log.
                     RestrictionRadius = 0, // Prevents other blocks of this type from being placed within this distance of the centre of the block.
@@ -234,6 +235,7 @@ namespace Scripts {
                     ProhibitLGTargeting = false, // If true, prohibits block from targeting Large Grids (best used in server-specific weapon packs)
                     ProhibitSGTargeting = false, // If true, prohibits block from targeting Small Grids (best used in server-specific weapon packs)
                     ProhibitSubsystemChanges = false, // If true, disables subsystem selection by player.  Should only target subsystem list in order as specified in Targeting
+                    AllowNoTargetFiring = false, // If true, allows the weapon to fire smart ammos even without a target without the projectile being fired in "Test Mode" (and therefore not being retargetable)
                 },
                 Loading = new LoadingDef
                 {

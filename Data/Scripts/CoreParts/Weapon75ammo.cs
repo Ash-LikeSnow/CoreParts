@@ -34,7 +34,6 @@ using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef.Trace
 using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef.Texture;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.DecalDef;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.DamageTypes.Damage;
-using static Scripts.Structure.WeaponDefinition.ProjectileFlags;
 
 namespace Scripts
 { // Don't edit above this line
@@ -69,6 +68,7 @@ namespace Scripts
             HeatNeededToFire = 0, // Makes an ammo require heat in order to be able to be fired.
                                   // It should be noted that this does NOT subtract the heat, use AmmoDef.AllowNegativeHeatModifier to subtract the desired amount.
             NpcSafe = false, // This is you tell npc moders that your ammo was designed with them in mind, if they tell you otherwise set this to false.
+            GridsTargetSeekersTargetingThis = false, // If true, any Smart projectiles targeting this projectile will be added to grid threat lookups (and therefore will be shot at)
             NoGridOrArmorScaling = true, // If you enable this you can remove the damagescale section entirely.
             Sync = new SynchronizeDef
             {
@@ -413,8 +413,10 @@ namespace Scripts
                                 MaxRuns = 0, // 0 means unlimited, defines how many times this entry can return true. 
                                 Weight = Random(0, 99), // The approachId that rolls the highest number will be selected
                                 End1WeightMod = 0, // multiplies the weight Start and End value by this number, if both End conditions were true the highest roll between them wins, 0 means disabled
-                                End2WeightMod = 0,
+                                End2WeightMod = 0, // If set to double.MaxValue, then if this end condition is met, this entry is chosen immediately; if multiple approaches would be chosen order of highest to lowest
                                 End3WeightMod = 0,
+                                End4WeightMod = 0,
+                                End5WeightMod = 0,
                             },
                             new WeightedIdListDef
                             {
@@ -424,6 +426,8 @@ namespace Scripts
                                 End1WeightMod = 0, 
                                 End2WeightMod = 0,
                                 End3WeightMod = 0,
+                                End4WeightMod = 0,
+                                End5WeightMod = 0,
                             },
                             new WeightedIdListDef
                             {
@@ -433,6 +437,8 @@ namespace Scripts
                                 End1WeightMod = 0, 
                                 End2WeightMod = 0,
                                 End3WeightMod = 0,
+                                End4WeightMod = 0,
+                                End5WeightMod = 0,
                             },
                         },
                         Operators = StartEnd_And, // Controls how the start and end conditions are matched:  StartEnd_And*, StartEnd_Or, StartAnd_EndOr,StartOr_EndAnd,
@@ -440,24 +446,47 @@ namespace Scripts
                         ForceRestart = false, // This forces the ReStartCondition when the end condition is met no matter if the start condition was met or not.  
 
                         // Start/End conditions
-                        StartCondition1 = Lifetime, // Each condition type is either >= or <= the corresponding value defined below.
-                                                    // Ignore(skip this condition)*, DistanceFromPositionC[<=], DistanceToPositionC[>=], DistanceFromPositionB[<=], DistanceToPositionB[>=]
-                                                    // DistanceFromTarget[<=], DistanceToTarget[>=], DistanceFromEndTrajectory[<=], DistanceToEndTrajectory[>=], Lifetime[>=], DeadTime[<=],
-                                                    // MinTravelRequired[>=], MaxTravelRequired[<=], Spawn(per stage), DesiredElevation(tolerance can be set with ElevationTolerance),
-                                                    // NextTimedSpawn[<=], SinceTimedSpawn[>=], RelativeLifetime[>=], RelativeDeadTime[<=], RelativeSpawns[>=], EnemyTargetLoss[>=],
-                                                    // RelativeHealthLost[>=], HealthRemaining[<=],
-                                                    // *NOTE* DO NOT set start1 and start2 or end1 and end2 to same condition
-                        StartCondition2 = Ignore, 
-                        EndCondition1 = DesiredElevation, 
+                        // Each condition type is either >= or <= the corresponding value defined below.
+                        // Ignore(skip this condition), Spawn (always true),
+                        // DistanceFromPositionC[<=], DistanceToPositionC[>=] - distance in meters from the defined PositionC
+                        // DistanceFromPositionB[<=], DistanceToPositionB[>=] - distance in meters from the defined PositionB
+                        // DistanceFromTarget[<=], DistanceToTarget[>=] - distance in meters from the current target
+                        // DistanceFromEndTrajectory[<=], DistanceToEndTrajectory[>=] - distance in meters from the end trajectory
+                        // Lifetime[>=], DeadTime[<=] - total time alive
+                        // MinTravelRequired[>=], MaxTravelRequired[<=] - distance projectile has traveled so far
+                        // DesiredElevation(tolerance can be set with ElevationTolerance) - projectile is given value±ElevationTolerance above the defined elevation plane
+                        // NextTimedSpawn[<=], SinceTimedSpawn[>=] - time in ticks since the last timed spawn was spawned
+                        // RelativeSpawns[>=] - time in ticks since the last timed spawn in this approach was spawned
+                        // RelativeLifetime[>=], RelativeDeadTime[<=] - relative time alive
+                        // EnemyTargetLoss[>=], ReaquiredTarget[<=] - time in ticks the projectile has no target
+                        // RelativeHealthLost[>=], HealthRemaining[<=] - current HP
+                        // EnemySeekersGreaterThanEqualTo[>=], EnemySeekersLessThanEqualTo[<=] - number of enemy Smart munitions targeting this munition
+                        StartCondition1 = Lifetime, 
+                        
+                        StartCondition2 = Ignore,
+
+                        EndCondition1 = DesiredElevation,
                         EndCondition2 = Ignore,
                         EndCondition3 = Ignore,
+                        EndCondition4 = Ignore,
+                        EndCondition5 = Ignore,
                         // Start/End thresholds -- both conditions are evaluated before activation, use Ignore to skip
                         Start1Value = 60,
                         Start2Value = 0,
+
                         End1Value = 1000, 
                         End2Value = 0,
-                        End3Value = 0, 
-                        // Special triggers when the start/end conditions are met (DoNothing*, EndProjectile, EndProjectileOnRestart, StorePositionA, StorePositionB, StorePositionC, Refund)
+                        End3Value = 0,
+                        End4Value = 0,
+                        End5Value = 0,
+
+                        // Special triggers when the start/end conditions are met
+                        // DoNothing
+                        // EndProjectile - Despawns the projectile
+                        // EndProjectileOnRestart - Despawns the projectile if end conditions are met before start conditions
+                        // StorePositionA, StorePositionB, StorePositionC - Stores this position for later use
+                        // Refund - Triggers refund actions based on HeatRefund and ReloadRefund (those two wil do nothing if this is not set)
+                        // ForceRetarget - Forces the projectile to do a target calculation
                         StartEvent = DoNothing, 
                         EndEvent = DoNothing,  
                         

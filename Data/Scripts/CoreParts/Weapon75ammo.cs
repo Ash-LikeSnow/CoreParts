@@ -549,6 +549,7 @@ namespace Scripts
                         TargetAvoidance = false, // If this and FutureIntersect is enabled then projectiles will actively avoid the target.
                         SelfPhasing = false, // If enabled the projectiles can phase through the parent grids without doing damage or dying.
                         SwapNavigationType = false, // This will swap to other navigation  (i.e. the alternate of what is set in smart, ProNav vs ZeroEffort) 
+                        DockOnEnd = false, // If true in the stage where EndProjectile or Refund is called, EOL AV and frag spawning will be suppressed
                         // Audio/Visual Section
                         AlternateParticle = new ParticleDef // if blank it will use default, must be a default version for this to be useable. 
                         {

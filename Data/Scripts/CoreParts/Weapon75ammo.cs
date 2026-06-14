@@ -1,39 +1,42 @@
 ﻿using static Scripts.Structure.WeaponDefinition;
 using static Scripts.Structure.WeaponDefinition.AmmoDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.AreaOfDamageDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.AreaOfDamageDef.AoeShape;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.AreaOfDamageDef.Falloff;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.CustomScalesDef.SkipMode;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.DamageTypes.Damage;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.DeformDef.DeformTypes;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.ShieldDef.ShieldType;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.EjectionDef;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.EjectionDef.SpawnType;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.ShapeDef.Shapes;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.CustomScalesDef.SkipMode;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.FragmentDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.PatternDef.PatternModes;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.FragmentDef.TimedSpawnDef.PointTypes;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.Conditions;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.UpRelativeTo;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.FwdRelativeTo;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.ReInitCondition;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.RelativeTo;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.ConditionOperators;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.StageEvents;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.GuidanceType;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.ShieldDef.ShieldType;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.DeformDef.DeformTypes;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.AreaOfDamageDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.AreaOfDamageDef.Falloff;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.AreaOfDamageDef.AoeShape;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.EwarDef;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.EwarDef.EwarMode;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.EwarDef.EwarType;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.EwarDef.PushPullDef.Force;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.FragmentDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.FragmentDef.TimedSpawnDef.PointTypes;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.AdvBillboardsDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.DecalDef;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef.FactionColor;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef.TracerBaseDef;
 using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef.Texture;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.DecalDef;
-using static Scripts.Structure.WeaponDefinition.AmmoDef.DamageScaleDef.DamageTypes.Damage;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.GraphicDef.LineDef.TracerBaseDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.PatternDef.PatternModes;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.ShapeDef.Shapes;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.ConditionOperators;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.Conditions;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.FwdRelativeTo;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.ReInitCondition;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.RelativeTo;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.StageEvents;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.UpRelativeTo;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.ApproachDef.ModelRelativeTo;
+using static Scripts.Structure.WeaponDefinition.AmmoDef.TrajectoryDef.GuidanceType;
+using static VRageRender.MyBillboard.BlendTypeEnum; // 41 lines of usings... lmao
 
 namespace Scripts
 { // Don't edit above this line
@@ -126,7 +129,7 @@ namespace Scripts
                     "",
                 },
                 Mode = Fragment, // Select when to activate this pattern, options:
-                // Weapon - Pattern will be applied to the weapon firing.Useful for mixed belts like tracer - solid - solid, or for having virtual beams akin to real-virtual (x14)
+                // Weapon - Pattern will be applied to the weapon firing. Useful for mixed belts like tracer - solid - solid, or for having virtual beams akin to real-virtual (x14)
                 // Fragment - Pattern will be applied when the weapon fragments.Can be used for fragment RNG, drones having different weapons, or for having the weapon split off into multiple different fragments
                 // Both - Pattern will be applied to both weapon and fragment
                 // Never - Turns off this feature
@@ -135,7 +138,9 @@ namespace Scripts
                 Random = false, // This randomizes the number spawned at once, NOT the list order.
                 RandomMin = 1, 
                 RandomMax = 1,
-                SkipParent = false, // Skip the Ammo itself, in the list
+                SkipParent = false, // If Mode = Weapon, Skip the Ammo itself, in the list. If mode is fragment this does nothing
+                // Note: SkipParent = false has the initial ammo fire, IN ADDITION TO of whatever pattern ammos are spawned per fire event. In other words, it will spawn more than one projectile per fire event minimum
+                // If you want something like mixed belts set this to true and manually add this ammo to the list
                 PatternSteps = 1, // Number of Ammos activated per round, will progress in order and loop. Ignored if Random = true.
             },
             DamageScales = new DamageScaleDef
@@ -573,7 +578,31 @@ namespace Scripts
                         },
                         AlternateModel = "", // Define only if you want to switch to an alternate model in this phase
                         AlternateSound = "BoosterStageSound", // if blank it will use default, must be a default version for this to be useable. 
+
                         ModelRotateTime = 0, // If this value is greater than 0 then the projectile model will rotate to face the target, a value of 1 is instant (in ticks).
+                        AlternateModelForwardUp = false, // If true, then rather than rotate towards the target the model will rotate towards the desired forward and up directions
+                        ModelMaximumAngleToRotate = 0, // If greater than zero, then instead of model rotate time this defines the maximum amount of degrees per second the model can rotate to face wherever its facing.
+                                                       // This is a much more expensive version of ModelRotateTime, and ignores it if nonzero. Requires AlternateModelForwardUp to function.
+                                                       // Will not rotate the model back smoothly unless AlternateModelForwardUp = true on the next approach with ModelForwards, ModelUp = ModelNone, and a nonzero value for this.
+                                                       // Do not use this on the first approach or it will break.
+                        // The following are valid for both ModelForwards and ModelUp
+                        // ModelNone - Don't do anything. If used for forwards, has the model not rotate
+                        // ModelRelativeToGravity - Use the projectile's closest planet's gravity
+                        // ModelTargetDirection - Use the direction from the projectile to the target. If this is used for forwards its the same as if AlternateModelForwardUp = false
+                        // ModelTargetPredictedDirection - Use the direction from the projectile to where the target would be if you were trying to hit it with this projectile's defined fragment (if any - if none same as above)
+                        // ModelTargetVelocity - Use the projectile's target's velocity
+                        // ModelStoredStartPosition - If a start position was saved at StartEvent then use the direction from the stored position to the launcher for it. This position is absolute and will not update if the launcher's position changes.
+                        // ModelStoredEndPosition - If a end position was saved at EndEvent then use the direction from the stored position to the launcher for it. This position is absolute and will not update if the launcher's position changes.
+                        // ModelStoredStartLocalPosition - If a local start position was saved at StartEvent then use the direction from the stored position to the launcher for it. This position is relative and will update if the launcher's positon changes.
+                        // ModelStoredEndLocalPosition - If a local end position was saved at EndEvent then use the direction from the stored position to the launcher for it. This position is relative and will update if the launcher's positon changes.
+                        // ModelRelativeToShooterForwards - Use the forwards direction of the block the projectile originated from. This is updated if the block rotation changes.
+                        // ModelRelativeToShooterUp - Use the up direction of the block the projectile originated from. This is updated if the block rotation changes.
+                        // ModelRelativeToOriginDirection - Use the direction from the projectile to its origin.
+                        // ModelOriginForwards - Use the direction the projectile was facing when it spawned.
+                        // ModelOriginUp - Use the up direction the projectile had when it spawned.
+                        // ModelAcceleration - Use the projectile's acceleration vector for up. If the projecile is in gravity, it will be subtracted from it - aka if the projectile isn't globally accelerating the "acceleration" value will point up rather than be zero. Useful for "aircraft" up.
+                        ModelForwards = ModelTargetPredictedDirection,
+                        ModelUp = ModelAcceleration,
                     },
                 },
                 Mines = new MinesDef  // Note: This is being investigated. Please report to Github, any issues.
@@ -705,9 +734,13 @@ namespace Scripts
                                        // If you want tracer but no trail, set width and color here to zero to disable tracer render while keeping trail
                         Length = 5f, // Length in meters to draw the tracer, goes from projectile center to projectile backwards * length
                         Width = 0.1f, // Width in arbitrary keen™ units
-                        Color = Color(red: 3, green: 2, blue: 1f, alpha: 1), // RBG 255 is Neon Glowing, 100 is Quite Bright.
+                        Color = Color(red: 3f, green: 2f, blue: 1f, alpha: 1f), // RBG 255 is Neon Glowing, 100 is Quite Bright.
                                                                              // For no glow, use 0-1
-                        FactionColor = DontUse, // DontUse, Foreground, Background.
+                        FactionColor = DontUse,
+                        // FactionColor Options:
+                        // DontUse - uses the defined Color
+                        // Foreground - uses the user defined Icon Hue in their faction icon
+                        // Background - uses the user defined Hue in their faction icon
                         VisualFadeStart = 0, // Number of ticks the weapon has been firing before projectiles begin to fade their color
                         VisualFadeEnd = 0, // How many ticks after fade began before it will be invisible.
                         AlwaysDraw = false, // Prevents this tracer from being culled.  Only use if you have a reason too (very long tracers/trails).
@@ -729,7 +762,11 @@ namespace Scripts
                             SegmentGap = 0f, // Uses Tracer textures and values
                             Speed = 1f, // meters per second
                             Color = Color(red: 1, green: 2, blue: 2.5f, alpha: 1),
-                            FactionColor = DontUse, // DontUse, Foreground, Background.
+                            FactionColor = DontUse,
+                            // FactionColor Options:
+                            // DontUse - uses the defined Color
+                            // Foreground - uses the user defined Icon Hue in their faction icon
+                            // Background - uses the user defined Hue in their faction icon
                             WidthMultiplier = 1f,
                             Reverse = false, 
                             UseLineVariance = true,
@@ -740,7 +777,7 @@ namespace Scripts
                     Trail = new TrailDef
                     {
                         Enable = false,
-                        AlwaysDraw = false, // Prevents this tracer from being culled.  Only use if you have a reason too (very long tracers/trails).
+                        AlwaysDraw = false, // Prevents this tracer from being culled. Only use if you have a reason too (very long tracers/trails).
                         Textures = new[] {
                             "", // Please always have this Line set, if this Section is enabled.
                         },
@@ -750,10 +787,10 @@ namespace Scripts
                         // Wave - Goes from start to finish and then back to start(0, 1, 2, ..., n, n - 1, n - 2, ..., 2, 1, 0)
                         // Chaos - Random selection
                         DecayTime = 3, // In Ticks. 1 = 1 Additional Tracer generated per motion, 33 is 33 lines drawn per projectile. Keep this number low.
-                        Color = Color(red: 0, green: 0, blue: 1, alpha: 1),
-                        FactionColor = DontUse, // DontUse, Foreground, Background.
+                        Color = Color(red: 0f, green: 0f, blue: 1f, alpha: 1f),
+                        FactionColor = DontUse, // DontUse, Foreground, Background. In game, Hue = Background, Icon Hue = Foreground
                         Back = false,
-                        CustomWidth = 0, // Same as Tracer Width for the Trail at t=0
+                        CustomWidth = 0f, // Same as Tracer Width for the Trail at t=0
                         UseWidthVariance = false, // Use above defined WidthVariance
                         UseColorFade = true, // Instead of fading via reducing line width (lerp from CustomWidth to 0), reduces color to black and transparent
                     },
@@ -770,6 +807,179 @@ namespace Scripts
                         // Note: The segmentation starts at the back of the projectile (or start of the beam) and so long as there is some distance left of the tracer to cover with
                         // OffsetEffect then it will fill it without regard to how much distance is left. In other words, this effect can overshoot the front of the projectile (or end of the beam).
                     },
+                },
+                AdvancedLines = new AdvBillboardsDef // This is only for when you need multiple trails, lines, and/or need them offsetted, or if your trail needs to be super long and you don't want 1000 billboards.
+                {                                    // 99% of the time this is not needed and should be removed
+                    Enable = false, // No effect for beam weapons
+                    UseModelRotation = false, // If true, and if the projectile has a model defined, then use that model's world matrix for use here rather than velocity for forwards and origin up for up
+                                              // (aka. orient the offset vectors to the projectile's model rather than velocity)
+                    // Any position (P0-P3) has +X = right, +Y = up, +Z = backwards. Up is muzzle up when the weapon fired and can be rotated. Forwards is projectile velocity, unless UseModelRotation = true
+                    AdvLines = new[]
+                    {
+                        // Each line defined here will be drawn from P0 to P1 according to the settings relative to the projectile, and will not reference eachother
+                        new Line
+                        {
+                            P0 = Vector(x: 0f, y: 0f, z: 0f), // Start of the line
+                            P0RandomOffset = 0f, // Applies a random offset to the start position in any direction up to this amount
+                            P1 = Vector(x: 0f, y: 0f, z: 0f), // End of the line
+                            P1RandomOffset = 0f, // Applies a random offset to the end positon in any direction up to this amount
+
+                            Color = Color(red: 1f, green: 1f, blue: 1f, alpha: 1f), // Color of the line
+                            FactionColor = DontUse,
+                            // FactionColor Options:
+                            // DontUse - uses the defined Color
+                            // Foreground - uses the user defined Icon Hue in their faction icon color * 100 (except A) componentwise multiplied by the defined color
+                            // Background - uses the user defined Hue in their faction icon color * 100 (except A) componentwise multiplied by the defined color
+                            // For Foreground/Background as an example, lets say we're using foreground and the user faction has a hue of 191°H 100%S, 71%V (cyan-ish (#0094b6)).
+                            // Converted to a color here that would be 0R, 0.580G, 0.714B, 1A --> 0R, 58.0G, 71.4B, 1A
+                            // If the color you defined is 500R, 0.5G, 2B, 0.05A, then the new color would be 0*500R, 58.0*0.5G, 71.4*2B, 1*0.05A = 0R, 29.0G, 142.8B, 0.05A
+                            // This is different to how standard lines do it, they just do the multiply by 100 step, and is done so you can scale down/up colors
+                            BlendType = Standard,
+                            // BlendType Options:
+                            // Standard
+                            // AdditiveBottom
+                            // AdditiveTop
+                            // LDR
+                            // PostPP
+                            // SDR
+                            Materials = new[] { // Material texture of the given line. WeaponLaser, ProjectileTrailLine, WarpBubble, etc. Progresses from top to bottom every time a new line is generated
+                                "ProjectileTrailLine",
+                            }, 
+                            Width = 1f, // Width in arbitrary keen™ units
+
+                            WidthFade = true, // If true, will lerp Width to 0 as time approaches TimeRendered. Does nothing for TimeRendered = 1
+                            ColorFade = false, // If true, will lerp Color to 0 as time approaches TimeRendered. Does nothing for TimeRendered = 1
+                            VelocityInheritence = 0f, // If not zero, the line will inherit that velocity multiplied by this amount
+                            AlwaysDraw = false,  // If true, prevents this tracer from being culled. Only use if you have a reason too (very individual lines)! Position used to test is midpoint of each segment
+                            
+                            MinViewDistance = 0f, // If greater than zero, then the line will not be scheduled, if the distance between the current camera position and the PROJECTILE position is less than this
+                            MaxViewDistance = 0f, // If greater than zero, then the line will not be scheduled, if the distance between the current camera position and the PROJECTILE position is greater than this
+                            // Scheduling to be drawn means that the line will be processed as if it were to be drawn. If its not scheduled then it will never appear
+                            // (ie. if a TimeRendered = 120 line isn't scheduled then it will never appear. If it is just offscreen culled then looking back will be as if it was always there)
+                            // You can use these to make a crude LOD system
+                            DelayBetweenSpawns = 0, // Number of ticks between a new line being drawn. 0 means every tick, 1 means every other, etc.
+                            DelayBetweenSpawnsOffset = 0, // Offset the delay between spawns counter by this amount.
+                                                          // For example, if DelayBetweenSpawns = 2. in ticks normally would Spawn, Skip, Skip, Spawn, etc.
+                                                          // If DelayBetweenSpawnsOffset = 1 then in ticks it wouldbe Skip, Skip, Spawn, Skip, Skip, Spawn, etc.
+                                                          // If DelayBetweenSpawnsOffset = 2 then in ticks it wouldbe Skip, Spawn, Skip, Skip, Spawn, Skip, etc.
+                            TimeRendered = 1, // In Ticks. 1 = 1 line generated per projectile, 33 is 33 lines drawn per projectile per line. Keep this number low. If this is zero it defaults to 1
+
+                            OnlyDrawIfAccelerationAligned = false, // If true, then the line will only be drawn/scheduled if the projectile's acceleration dotted with the line direction is above the below value (P1 - P0)
+                            AccelerationDotReq = 0f, // Only used if above is true. This will define the required dot product value. Note that neither acceleration or the line length is normalized beforehand!
+                            LengthAffectedByAccelAlignment = false, // If true, then P1 will be scaled down to P0 based off of the absolute value of the acceleration dot product
+                                                                    // Distance from P0-P1 will be the maximum length drawn, and for the dot product the line direction will be normalized for the dot product as well.
+                                                                    // This will also scale width accordingly
+                            AccelAccountForGrav = false, // If true, then the acceleration vector will be as if the projectile was also countering gravity.
+                            AccelerationSizeMultiplier = 1f, // This multiplies acceleration length accordingly. This value MUST be nonzero
+                            // All of these acceleration settings are designed to be used for thrusters on drones/missiles if you couldn't tell
+
+                            RotateSpeed = 0, // Rotates the definition's positions around the Z axis (forward) counter clock wise by this amount in degrees per second.
+                        }
+                    },
+                    AdvTrails = new[]
+                    {
+                        // Each line defined here will be drawn from P0 of last tick to P0 of this tick relative to the projectile
+                        // This does not support velocity inheritance in order to not have to iterate through all trails
+                        new Trail
+                        {
+                            P0 = Vector(x: 0f, y: 0f, z: 0f), // Offset from projectile center
+                            P0RandomOffset = 0f, // Applies a random offset to the start position in any direction up to this amount. Note that trails will be contiguous, so any offset from last tick will be kept the same
+
+                            Color = Color(red: 1f, green: 1f, blue: 1f, alpha: 1f),  // Color of the trail
+                            FactionColor = DontUse,
+                            // FactionColor Options:
+                            // DontUse - uses the defined Color
+                            // Foreground - uses the user defined Icon Hue in their faction icon color * 100 (except A) componentwise multiplied by the defined color
+                            // Background - uses the user defined Hue in their faction icon color * 100 (except A) componentwise multiplied by the defined color
+                            // For Foreground/Background as an example, lets say we're using foreground and the user faction has a hue of 191°H 100%S, 71%V (cyan-ish (#0094b6)).
+                            // Converted to a color here that would be 0, 0.580, 0.714, 1 --> 0, 58.0, 71.4, 1
+                            // If the color you defined is 500, 0.5, 2, 0.05, then the new color would be 0*500, 58.0*0.5, 71.4*2, 1*0.05 = 0, 29.0, 142.8, 0.05
+                            // This is different to how standard lines do it, they just do the multiply by 100 step, and is done so you can scale down/up colors
+                            BlendType = Standard,
+                            // BlendType Options:
+                            // Standard
+                            // AdditiveBottom
+                            // AdditiveTop
+                            // LDR
+                            // PostPP
+                            // SDR
+                            Materials = new[] { // Material texture of the given line. WeaponLaser, ProjectileTrailLine, WarpBubble, etc. Progresses from top to bottom every time a new line is generated
+                                "WeaponLaser",
+                            },
+                            Width = 1f, // Width in arbitrary keen™ units
+
+                            WidthFade = true, // If true, will lerp Width to 0 as time approaches TimeRendered. Does nothing for TimeRendered = 1
+                            ColorFade = false, // If true, will lerp Color to 0R, 0G, 0B, 0A as time approaches TimeRendered. Does nothing for TimeRendered = 1
+                            AlwaysDraw = false,  // If true, prevents this tracer from being culled. Only use if you have a reason too (very individual lines)! Position used to test is midpoint of each segment.
+                                                 // If you're using this because `DelayBetweenSpawns` is large, reduce `DelayBetweenSpawns` over setting this to true.
+                            
+                            MinViewDistance = 0f, // If greater than zero, then the current trail line will not be spawned, if the distance between the current camera position and the PROJECTILE position is less than this
+                            MaxViewDistance = 0f, // If greater than zero, then the  current trail line will not be spawned, if the distance between the current camera position and the PROJECTILE position is greater than this
+                            // Spawning means that the line will be processed as if it were to be drawn. If its not spawned then it will never appear
+                            // (ie. if a TimeRendered = 120 line isn't spawned then it will never appear. If it is just offscreen culled then looking back will be as if it was always there)
+                            // You can use these to make a crude LOD system
+                            DelayBetweenSpawns = 1, // Number of ticks between a new line being drawn. 0 means every tick, 1 means every other, etc.
+                                                    // When a new line is not being drawn, the previous trail line will be extended to the new projectile position
+                                                    // Use when possible, especially for unguided projectiles with straight trails
+                                                    // For best results, keep DelayBetweenSpawns + 1 a clean multiple of TimeRendered (in this case a value of 1+1=2 divides 10 evenly into 5 lines
+                            DelayBetweenSpawnsOffset = 0, // Offset the delay between spawns counter by this amount.
+                                                          // For example, if DelayBetweenSpawns = 2. in ticks normally would Spawn, Skip, Skip, Spawn, etc.
+                                                          // If DelayBetweenSpawnsOffset = 1 then in ticks it wouldbe Skip, Skip, Spawn, Skip, Skip, Spawn, etc.
+                                                          // If DelayBetweenSpawnsOffset = 2 then in ticks it wouldbe Skip, Spawn, Skip, Skip, Spawn, Skip, etc.
+                            TimeRendered = 10, // In Ticks. 1 = 1 line generated per projectile, 33 is 33 lines drawn per projectile per trail. Keep this number low, although it can be offset with DelayBetweenSpawns. If this is zero it defaults to 1
+
+                            RotateSpeed = 0f, // Rotates the definition's positions around the Z axis (forward) counter clock wise by this amount in degrees per second.
+                            
+                        }
+                    },
+                    Billboards = new[]
+                    {
+                        // A much more manual experience
+                        // This only supports rendering constantly as this is directly used to construct the billboard and is not stored
+                        new Billboard
+                        {
+                            // Positions of the quad corners relative to the projectile
+                            // If you want a triangle instead of a quad, set P3 equal to P2. This is a performance optimization.
+                            P0 = Vector(x: 0f, y: 0f, z: 0f),
+                            P1 = Vector(x: 0f, y: 0f, z: 0f),
+                            P2 = Vector(x: 0f, y: 0f, z: 0f),
+                            P3 = Vector(x: 0f, y: 0f, z: 0f),
+
+                            Color = Color(red: 1f, green: 1f, blue: 1f, alpha: 1f), // Color of the billboard
+                            FactionColor = DontUse,
+                            // FactionColor Options:
+                            // DontUse - uses the defined Color
+                            // Foreground - uses the user defined Icon Hue in their faction icon color * 100 (except A) componentwise multiplied by the defined color
+                            // Background - uses the user defined Hue in their faction icon color * 100 (except A) componentwise multiplied by the defined color
+                            // For Foreground/Background as an example, lets say we're using foreground and the user faction has a hue of 191°H 100%S, 71%V (cyan-ish (#0094b6)).
+                            // Converted to a color here that would be 0R, 0.580G, 0.714B, 1A * 100 --> 0R, 58.0G, 71.4B, 1A
+                            // If the color you defined is 500R, 0.5G, 2B, 0.05A, then the new color would be 0*500R, 58.0*0.5G, 71.4*2B, 1*0.05A = 0R, 29.0G, 142.8B, 0.05A
+                            // This is different to how standard lines do it, they just do the multiply by 100 step, and is done to enable scaling up/down color channels
+                            BlendType = Standard,
+                            // BlendType Options:
+                            // Standards
+                            // AdditiveBottom
+                            // AdditiveTop
+                            // LDR
+                            // PostPP
+                            // SDR
+                            Materials = new[] { // Material texture of the given billboard. Progresses from top to bottom
+                                "MaterialSquare",
+                            },
+
+                            DelayBetweenSpawns = 0, // Number of ticks between each billboard being drawn. 0 means every tick, 1 means every other, etc.
+                            DelayBetweenSpawnsOffset = 0, // Offset the delay between spawns counter by this amount.
+                                                          // For example, if DelayBetweenSpawns = 2. in ticks normally would Spawn, Skip, Skip, Spawn, etc.
+                                                          // If DelayBetweenSpawnsOffset = 1 then in ticks it wouldbe Skip, Skip, Spawn, Skip, Skip, Spawn, etc.
+                                                          // If DelayBetweenSpawnsOffset = 2 then in ticks it wouldbe Skip, Spawn, Skip, Skip, Spawn, Skip, etc.
+
+                            MinViewDistance = 0f, // If greater than zero, then the billboard will not be drawn, if the distance between the current camera position and the PROJECTILE position is less than this
+                            MaxViewDistance = 0f, // If greater than zero, then the billboard will not be drawn, if the distance between the current camera position and the PROJECTILE position is greater than this
+                            // You can use these to make a crude LOD system
+
+                            RotateSpeed = 0f, // Rotates the definition's positions around the Z axis (forward) counter clock wise by this amount in degrees per second.
+                        }
+                    }
                 },
             },
             AmmoAudio = new AmmoAudioDef

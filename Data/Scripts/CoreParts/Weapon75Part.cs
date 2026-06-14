@@ -29,7 +29,11 @@ namespace Scripts {
                         AzimuthPartId = "None", // Your Rotating Subpart, the bit that moves sideways.
                         ElevationPartId = "None",// Your Elevating Subpart, that bit that moves up.
                         DurabilityMod = 0.25f, // GeneralDamageMultiplier, 0.25f = 25% damage taken.
-                        IconName = "TestIcon.dds" // Overlay for block inventory slots, like reactors, refineries, etc.  Looks in mod root folder\Textures\GUI\Icons\
+                        IconName = "TestIcon.dds" // Overlay for block inventory slots, like reactors, refineries, etc.
+                        // if IconName is just a file name, WC will look in mod root folder\Textures\GUI\Icons for it
+                        // if IconName is a file path starting with a folder WC will use that with no modifications (use only for VANILLA textures)
+                        // if the file path starts with `\` then WC will look in mod root folder\provided path (use for modded textures)
+                        // Modded textures must be included in this mod
                     },
                     
                  },

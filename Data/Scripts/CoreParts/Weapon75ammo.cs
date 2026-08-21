@@ -50,10 +50,14 @@ namespace Scripts
             HybridRound = false, // Use both a physical ammo magazine and energy per shot.
             EnergyCost = 0.1f, // Scaler for energy per shot (EnergyCost * BaseDamage * (RateOfFire / 3600) * BarrelsPerShot * TrajectilesPerBarrel). Uses EffectStrength instead of BaseDamage if EWAR.  If patterning ammos, only the main ammo (first fired) will count toward energy.
             BaseDamage = 111f, // Direct damage; one steel plate is worth 100.
-            BaseDamageCutoff = 50,  // Maximum amount of pen damage to apply per block hit.  Deducts from BaseDamage and uses DamageScales modifiers
+            BaseDamageCutoff = 50,  // Maximum amount of pen damage to apply per block hit.
                                     // Optional penetration mechanic to apply damage to blocks beyond the first hit, without requiring the block to be destroyed.  
                                     // Overwrites normal damage behavior of requiring a block to be destroyed before damage can continue.  0 disables. 
                                     // To limit max # of blocks hit, set MaxObjectsHit to desired # and ensure CountBlocks = true in ObjectsHit, otherwise it will continue until BaseDamage depletes
+            /* BaseDamageCutoff will subtract itself * any cutoff multipliers (see DamageScales.ArmorForCutoff for example) until BaseDamage is depleted. The actual damage it will do is affected by the other damage modifiers.
+            * Ie. If BaseDamage is 2000, BaseDamageCutoff is 100, it hits light armor and DamageScales.ArmorForCutoff.Light = 2f, and DamageScales.Armor.Light = 0.1f:
+            * Each light armor block can subtract up to 100 * 2 (200) damage from BaseDamage, but will only do 200 * 0.1f (20) damage to each block.
+            * Therefore it will go through 10 blocks of light armor before stopping and deal 20 damage to each. Against other blocks it will go through 20 of them, dealing 100 damage to each.*/
             Mass = 0f, // In kilograms; how much force the impact will apply to the target, multiplied by projectile speed at time of impact (beams only use the Mass value specified, no multiplier)
             Health = 0, // How much damage the projectile can take from other projectiles (base of 1 per hit) before dying; 0 disables this and makes the projectile untargetable.
             BackKickForce = 0f, // Recoil. This is applied to the Parent Grid.
@@ -163,12 +167,24 @@ namespace Scripts
                     Large = -1f, // Multiplier for damage against large grids.
                     Small = -1f, // Multiplier for damage against small grids.
                 },
+                GridSizeForCutoff = new GridSizeDef
+                {
+                    Large = -1f, // Multiplier for BaseDamageCutoff against large grids.
+                    Small = -1f, // Multiplier for BaseDamageCutoff against small grids.
+                },
                 Armor = new ArmorDef
                 {
                     Armor = -1f, // Multiplier for damage against all armor. This is multiplied with the specific armor type multiplier (light, heavy).
                     Light = -1f, // Multiplier for damage against light armor.
                     Heavy = -1f, // Multiplier for damage against heavy armor.
                     NonArmor = -1f, // Multiplier for damage against every else.
+                },
+                ArmorForCutoff = new ArmorDef
+                {
+                    Armor = -1f, // Multiplier for BaseDamageCutoff against all armor. This is multiplied with the specific armor type multiplier (light, heavy).
+                    Light = -1f, // Multiplier for BaseDamageCutoff against light armor.
+                    Heavy = -1f, // Multiplier for BaseDamageCutoff against heavy armor.
+                    NonArmor = -1f, // Multiplier for BaseDamageCutoff against every else.
                 },
                 Shields = new ShieldDef
                 {
@@ -203,11 +219,13 @@ namespace Scripts
                         {
                             SubTypeId = "Test1",
                             Modifier = -1f,
+                            CutoffModifier = -1f, // applies to BaseDamageCutoff independently of damage modifiers
                         },
                         new CustomBlocksDef
                         {
                             SubTypeId = "Test2",
                             Modifier = -1f,
+                            CutoffModifier = -1f, // applies to BaseDamageCutoff independently of damage modifiers
                         },
                     },
                 },

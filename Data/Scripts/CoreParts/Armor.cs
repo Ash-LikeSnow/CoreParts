@@ -19,6 +19,10 @@ namespace Scripts {
             EnergeticResistance = 0.95f, //Resistance to Energy damage. 0.5f = 200% damage, 2f = 50% damage
             KineticResistance = 0.82f, //Resistance to Kinetic damage. Leave these as 1 for no effect
             Kind = Heavy, //Heavy, Light, NonArmor - which ammo damage multipliers to apply
+            MinDamage = 1, //Minimum damage for a block to actually take damage. Damage events below this value will deduct from the projectiles damage pool but do nothing to the block. Respects all damage modifiers
+            IsSacrificialArmor = false, //If true, armor will be destroyed by a single projectile hit and stop all further primary damage, regardless of BaseDamage or block integrity. Optionally gated by MinDamageSacrificial and SacrificialIntegrityThreshold.
+            MinDamageSacrificial = 1, //Minimum amount of damage to invoke the sacrificial effect. Keeps low damage events from triggering sacrifice. Respects all damage modifiers
+            SacrificialIntegrityThreshold = 0.5f, //Threshold for the minimum block integrity for the sacrificial effect to occur
         };
         ArmorDefinition Armor2 => new ArmorDefinition
         {

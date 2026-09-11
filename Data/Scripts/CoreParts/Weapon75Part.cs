@@ -13,6 +13,7 @@ using static Scripts.Structure.WeaponDefinition.HardPointDef.HardwareDef;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.HardwareDef.HardwareType;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.LoadingDef;
 using static Scripts.Structure.WeaponDefinition.HardPointDef.UiDef;
+using static Scripts.Structure.WeaponDefinition.TargetingDef.ControlModes;
 
 namespace Scripts {
     partial class Parts {
@@ -84,6 +85,15 @@ namespace Scripts {
                 SubSystems = new[] {
                     Thrust, Utility, Offense, Power, Production, Any, // Subsystem targeting priority: Offense, Utility, Power, Production, Thrust, Jumping, Steering, Any
                                                                       // Order matters! With the current setting weapons will target Thrust first, then Utility, then Offense, etc.
+                },
+                // Determines what control modes the weapon can be in, if it is a turret/fires smart projectiles.
+                // Usually good to keep all 3 unless you have good reason to limit it. Painter can be force disabled via server settings independent of this.
+                // Note: You need to have at-least one of these here w/o removing this entire block if you want your mod to compile. If removed, defaults to all three.
+                ValidControlModes = new[]
+                {
+                    Automatic, // Turret/smarts aims and fires at targets automatically
+                    Manual, // Turret/smarts follows the user's WC cursor/camera aim
+                    Painter // Turret/smarts follows the user's paint mark. If this is the only setting and painter is disabled via server settings, this defaults back to automatic.
                 },
                 ClosestFirst = true, // Tries to pick closest targets first (blocks on grids, projectiles, etc...).
                 IgnoreDumbProjectiles = false,  // Don't fire at non-smart projectiles. If you're using projectile tags, ensure this is set to false as this overwrites the newer system

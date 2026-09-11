@@ -336,6 +336,16 @@ namespace Scripts
                 [ProtoMember(26)] internal bool AdvancedFireDistribution;
                 [ProtoMember(27)] internal string[] ProjectileTagsList;
                 [ProtoMember(28)] internal WhitelistSystem ProjectileTagsMeaning;
+                [ProtoMember(29)] internal ControlModes[] ValidControlModes;
+
+                [Flags]
+                public enum ControlModes : uint
+                {
+                    Invalid = 0,
+                    Automatic = 1,
+                    Manual = 2,
+                    Painter = 4
+                }
 
                 [ProtoContract]
                 public struct CommunicationDef

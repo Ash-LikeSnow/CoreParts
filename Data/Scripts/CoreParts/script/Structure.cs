@@ -652,7 +652,7 @@ namespace Scripts
                     [ProtoMember(1)] internal float RotateRate;
                     [ProtoMember(2)] internal float ElevateRate;
                     [ProtoMember(3)] internal Vector3D Offset;
-                    [ProtoMember(4)] internal bool FixedOffset;
+                    [ProtoMember(4)] internal bool FixedOffset; //Deprecated
                     [ProtoMember(5)] internal int MaxAzimuth;
                     [ProtoMember(6)] internal int MinAzimuth;
                     [ProtoMember(7)] internal int MaxElevation;
@@ -694,9 +694,9 @@ namespace Scripts
                 public struct OtherDef
                 {
                     [ProtoMember(1)] internal int ConstructPartCap;
-                    [ProtoMember(2)] internal int EnergyPriority;
+                    [ProtoMember(2)] internal int EnergyPriority; //Deprecated
                     [ProtoMember(3)] internal int RotateBarrelAxis;
-                    [ProtoMember(4)] internal bool MuzzleCheck;
+                    [ProtoMember(4)] internal bool MuzzleCheck; //Deprecated
                     [ProtoMember(5)] internal bool Debug;
                     [ProtoMember(6)] internal double RestrictionRadius;
                     [ProtoMember(7)] internal bool CheckInflatedBox;

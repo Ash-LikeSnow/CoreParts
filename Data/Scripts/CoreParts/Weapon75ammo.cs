@@ -77,6 +77,7 @@ namespace Scripts
             NpcSafe = false, // This is you tell npc moders that your ammo was designed with them in mind, if they tell you otherwise set this to false.
             GridsTargetSeekersTargetingThis = false, // If true, any Smart projectiles targeting this projectile will be added to grid threat lookups (and therefore will be shot at)
             NoGridOrArmorScaling = true, // If you enable this you can remove the damagescale section entirely.
+            UnderwaterOnly = false, // Ammo is killed when outside of water when using WaterMod
             Sync = new SynchronizeDef
             {
                 Full = false, // Use only on PD-killable (guided) projectiles that need to be replicated precisely on the client. It increases network traffic. When the projectile is fired (according to local game states), the clients don't locally spawn it, and instead, the server sends spawn packets to all clients, which spawns it exactly where the server spawned it. This also attaches a network identity to the projectile, allowing further replication, which you can control below.

@@ -288,6 +288,8 @@ namespace Scripts {
                     InventoryFillAmount = 0.75f, // 0.00-1.00f as a % of inventory volume that a weapon will try to fill up to when requesting magazines from the conveyor system (0.75f = 75%)
                     InventoryLowAmount = 0.25f, // 0.00-1.00f as a % of inventory volume.  If the current inventory is below this value, ammo magazines will be requested from the conveyor system (0.25f = 25%)
                     UseWorldInventoryVolumeMultiplier = false, // For ammo calcs only!  If true includes the world multiplier in the calculations for the inventory fill/low amount
+                    AllowAnyAmmmo = false, // If true, enables a player to select "Any"
+                    AllowAnyAmmmoDefault = false, // If true, newly placed weapons will start with "Any" ammo selected by default
                 },
                 Audio = new HardPointAudioDef
                 {

@@ -272,7 +272,7 @@ namespace Scripts
                     ParticleScale = 1,
                     CustomParticle = "particleName", // Particle SubtypeID, from your Particle SBC
 					             // If you need to set a custom offset, specify it in the "Hit" particle
-                    CustomSound = "soundName", // SubtypeID from your Audio SBC, not a filename
+                    CustomSound = "soundName", // SubtypeID from your Audio SBC, not a filename.  Enter "None" for no sound, otherwise default explosion sound will play
                     Shape = Diamond, // Round or Diamond shape.  Diamond is more performance friendly.
                 }, 
             },
@@ -667,7 +667,7 @@ namespace Scripts
                             Scale = 1,
                         },
                     },
-                    Eject = new ParticleDef
+                    Eject = new ParticleDef //Ensure you have the Ejection definition as well.  When it is set to particle, it references this field
                     {
                         Name = "",
                         Offset = Vector(x: 0, y: 0, z: 0),
@@ -1017,7 +1017,7 @@ namespace Scripts
             },
             Ejection = new EjectionDef // Optional Component, allows generation of Particle or Item (Typically magazine), on firing, to simulate Tank shell ejection
             {
-                Type = Particle, // Particle or Item (Inventory Component)
+                Type = Particle, // Particle or Item (Inventory Component).  Particle will refer to Particles.Eject for settings
                 Speed = 100f, // Speed inventory is ejected from in dummy direction in meters per second
                 SpawnChance = 0.5f, // chance of triggering effect (0 - 1)
                 SpeedVariance = Random(start: 0f, end: 0f), //Random range added to speed of ejected item, in meters per second
